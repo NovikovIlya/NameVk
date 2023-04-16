@@ -1,0 +1,139 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v8.4.14,
+* Autoprefixer: v10.4.7
+* Browsers: last 4 version
+*/
+
+.container{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    margin: 0 auto;
+    width: 100%;
+    margin-top: 50px;
+    
+}
+
+.TitleStyle {
+    display: flex;
+    justify-content: center;
+    text-align: center !important;
+}
+
+.miniContainer{
+    width: 100%;
+}
+
+.vkuiTitle {
+    padding: 10px;
+    text-align: start;
+}
+
+.btnParent{
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+}
+
+.jokeParent{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    padding: 10px;
+    width: 100%;
+}
+
+.joke{
+    text-align: center;
+    width: 100%;
+
+    font-family: var(--vkui--font_title1--font_family--regular);
+}
+
+.vkuiIcon {
+    margin-right: 5px;
+}
+
+.imageParent{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    width: 100%;
+}
+
+.image{
+    width: 200px;
+}
+
+.TitleStyle{
+    width: 100%;
+}
+.InputParent{
+    display: flex;
+    justify-content: center;
+}
+
+.inputStyle{
+    width: 200px !important;
+
+}
+
+.vkuiTitle{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ulStyle{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 10px;
+
+}
+
+.liStyle{
+    list-style-type:none;
+    width: 100%;
+    
+}
+
+.wh{
+    width: 100%;
+}
+.zero1{
+    opacity: 0;
+}
+
+.zagrStyle{
+    /* position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5) */
+}
+
+.BtnName{
+    margin-left: 5px;
+}
+
+

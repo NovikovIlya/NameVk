@@ -1,0 +1,51 @@
+.item {
+  text-decoration: none;
+}
+
+.item:hover{
+    /* background-color: azure; */
+    color:burlywood
+}
+
+.containerItem{
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    /* background-color: #2688EB; */
+    border-radius: 50px;
+}
+.btnParent{
+    margin-bottom: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.btn {
+  margin-top: 50px;
+}
+
+.btnLink {
+  color:white ;
+  text-decoration: none;
+}
+
+.mean {
+  width: 100%;
+  margin-top: 5px;
+  text-align: center;
+}
+
+.people {
+    width: 100%;
+    margin-top: 5px;
+    text-align: center;
+  }
+
+.pStyle {
+  margin-top: 5px;
+  padding: 10px;
+  text-align: center;
+}
