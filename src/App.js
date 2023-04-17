@@ -35,8 +35,8 @@ const App = () => {
 
 	return (
 		
-		// <ConfigProvider appearance={themeUser}>
-		<ConfigProvider appearance='light'> 
+		<ConfigProvider appearance={themeUser}>
+		{/* <ConfigProvider appearance='light'>  */}
 			<AdaptivityProvider>
 				<AppRoot>
 					<SplitLayout >

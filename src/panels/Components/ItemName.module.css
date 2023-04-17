@@ -1,5 +1,10 @@
 .item {
   text-decoration: none;
+  font-size: 4vw;
+  background-color: #E0EBFF;
+  border-radius: 50px;
+  padding: 13px;
+  margin-bottom: 30px;
 }
 
 .item:hover{
@@ -8,13 +13,16 @@
 }
 
 .containerItem{
+  margin-bottom: 20px;
     margin-top: 20px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     width: 100%;
     /* background-color: #2688EB; */
-    border-radius: 50px;
+    /* border-radius: 50px; */
+    /* border:1px solid rgb(194, 194, 194);
+    height: 50px; */
 }
 .btnParent{
     margin-bottom: 20px;
@@ -51,4 +59,11 @@
   margin-top: 5px;
   padding: 10px;
   text-align: center;
+}
+
+@media screen and (max-width: 600px) {
+  .item{
+      font-size: 9vw;
+      padding: 13px;
+  }
 }

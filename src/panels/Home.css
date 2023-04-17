@@ -120,7 +120,7 @@
 .btnDelete{
     position: absolute;
     box-shadow: none !important;
-    margin-left: 170px;
+    margin-left: 155.5px;
     min-width: 35px;
     display: flex;
     align-items: center;
@@ -128,11 +128,24 @@
     opacity: 0.5 ;
 }
 
+.btnDelete:hover{
+    background-color:transparent !important ;
+}
+
 .netImeniStyle{
     margin-top: 20px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+}
+
+.binb{
+    width: 100% ;
+    display: flex;
+    justify-content: center;
+    border:1px solid rgb(212, 212, 212);
+    height: 70px;
+    align-items: center;
 }
 
 .btnKek{

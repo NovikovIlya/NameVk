@@ -26,12 +26,12 @@ const ItemName = ({name1,getAnekdots,zagr}) => {
   },[])
 
   useEffect(()=>{
-    setTimeout(menyamZagr1,2000)
+    setTimeout(menyamZagr1,5000)
   },[])
 
   function wallPost(){
     bridge.send('VKWebAppShowWallPostBox', {
-        message: 'Я узнал тайну своего имени! Узнай и ты!',
+        message: 'Я узнал тайну своего имени! Узнай и ты!'  + moeName.mean,
         attachment: 'https://vk.com/app51616632_70033480',
         owner_id: fetchedUser.id
       })
@@ -90,6 +90,13 @@ const ItemName = ({name1,getAnekdots,zagr}) => {
   const moeName = data1.find(item=>item.name === name)
   console.log(moeName);
 
+  const zagryzimReclamy = ()=>{
+    if(context !== false){
+        getAnekdots()
+    }
+    
+  }
+
   return (
     
     <div className={styles.containerItem}>
@@ -114,9 +121,9 @@ const ItemName = ({name1,getAnekdots,zagr}) => {
 
         
         
-        <div className={`${moeName? context? 'zero1' : '' : ''}`}>
+        <div className={`  ${moeName? context? 'zero1' : '' : ''}`}>
             {moeName ? '' : <>
-            <Link className={styles.item}  to={`/${name1}`}>{name1}</Link>
+            <Link onClick={zagryzimReclamy} className={styles.item}  to={`/${name1}`}>{name1}</Link>
             </>}
 
             {moeName && <>

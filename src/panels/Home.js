@@ -81,7 +81,7 @@ function Home({fetchedUser}) {
     if(reclama === false){
       async function heh(){
         setZagr(true)
-        setTimeout(load,2000)
+        // setTimeout(load,2000)
         setTimeout(fooButtonClick,2000)
         
         
