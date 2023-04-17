@@ -3,22 +3,46 @@ import React,{useEffect, useState,createContext,useContext} from 'react'
 import { Link, useParams } from 'react-router-dom'
 import styles from './ItemName.module.css'
 import Home from '../Home'
-import { Icon20ArticleBoxOutline , Icon20Users3} from '@vkontakte/icons';
+import { Icon20ArticleBoxOutline , Icon20Users3, Icon20ArrowUturnLeftOutline, Icon20ArrowshapeLeft2Outline} from '@vkontakte/icons';
 import './../Home.css'
 import { Context } from "./../Context";
+import bridge from '@vkontakte/vk-bridge';
+
 
 
 
 const ItemName = ({name1,getAnekdots,zagr}) => {
   const [zagr1,setZagr1] = useState(true)
   const [context, setContext] = useContext(Context);
+  const [fetchedUser, setUser] = useState(null);
+
+  useEffect(() => {
+    async function fetchData() {
+        const user = await bridge.send('VKWebAppGetUserInfo');
+        setUser(user);
+    }
+    fetchData();
+    console.log(fetchedUser);
+  },[])
 
   useEffect(()=>{
-   
     setTimeout(menyamZagr1,2000)
   },[])
 
-  
+  function wallPost(){
+    bridge.send('VKWebAppShowWallPostBox', {
+        message: 'Я узнал тайну своего имени! Узнай и ты!',
+        attachment: 'https://vk.com/app51616632_70033480',
+        owner_id: fetchedUser.id
+      })
+      .then( (data) => {
+        // Запись отправлена на стену
+        console.log(`Идентификатор записи: ${data.post_id}`);
+      })
+      .catch( (e) => {
+        console.log("Ошибка!", e);
+      })
+  }
    
  
 
@@ -76,7 +100,9 @@ const ItemName = ({name1,getAnekdots,zagr}) => {
             <div className={styles.btnParent}>
                 <Link className={styles.btnLink} to='/' >
                     <Button className={styles.btn}>
-                        Назад
+                        <div className='btnKek'>
+                            <Icon20ArrowUturnLeftOutline/>Назад
+                        </div>
                     </Button>
                 </Link>
                 {/* <Button className={styles.btn}>
@@ -101,6 +127,13 @@ const ItemName = ({name1,getAnekdots,zagr}) => {
                 <div className={styles.people}>
                     <Title><Icon20Users3 />Известные люди</Title>
                     <p className={styles.pStyle}>{moeName&& moeName.people}</p>
+                </div>
+                <div className={styles.btnParent}>
+                    <Button onClick={wallPost} className={styles.btn}>
+                        <div className='btnKek'>
+                             <Icon20ArrowshapeLeft2Outline/>Опубликовать на стене!
+                        </div>
+                    </Button>
                 </div>
                 {/* <div className={styles.dateName}>{moeName&& moeName.dateName}</div> */}
             </>}

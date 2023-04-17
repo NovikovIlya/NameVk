@@ -37,18 +37,7 @@ function Home({fetchedUser}) {
 	const [image,setImage] = useState()
 	const [reclama,setReclama] = useState(false)
   const [zagr,setZagr] = useState(false)
-	const images = ['/_6a103aba-2fd8-4a64-97eb-3958ab67fa4a.png',
-					'/_1d9bb5df-3c09-4757-8220-6193314cbb90.png',
-				     '/_6d86caa4-edf7-408a-8161-41cc7009618c.png',
-            '/_9bce6d5b-0dfe-4858-9e33-5066ff491316.png',
-            '/_9e7d7951-01dc-419f-859e-6315dcfe0207.png',
-           '/_11f1a93a-f9f0-4878-be53-ea991a6deb77.png',
-          '/_40ff23e6-cea2-4afb-a93b-91af671ee81c.png',
-        '/_127a7218-d660-4a21-90ee-61b024e44750.png',
-      '/_642a1eff-d337-47d6-80a9-758dfa3a1aca.png',
-    '/_43748afb-80f7-42a7-b987-55c23b8cc5c5.png',
-    '/_c9915854-1309-450b-991e-d6aa289040aa.png',
-  '/_ecc0ca87-0525-42f4-9bbb-e478472aedcd.png']
+	const [netImeni,setNetImeni] = useState(false)
 	const andeknodts = [
       {
           name: "Августин",
@@ -105,23 +94,36 @@ function Home({fetchedUser}) {
 
 	}
 
-	function getImages(){
-		const randomItem = Math.floor(Math.random() * images.length);
-		const randomImages = images[randomItem]
-		console.log(randomImages);
-		setImage(randomImages)
-	}
 
-  
   const [searchTerm, setSearchTerm] = useState('');
 
   const handleInputChange = (event) => {
+    
     setSearchTerm(event.target.value);
     console.log(searchTerm);
+    console.log('111',searchResults);
+
+    if (searchResults === '' && searchTerm != '' ){
+      console.log('Нет таких имен!');
+      console.log(searchResults);
+      
+      setNetImeni(true)
+      
+    }else if (searchTerm == ''){
+      setNetImeni(false)
+    }
+    else {
+      setNetImeni(false)
+    }
     
   };
 
+
+
   const searchResults = getSearchResults(searchTerm);
+
+  
+ 
 
   function getSearchResults(query) {
     const data = [
@@ -162,11 +164,14 @@ function Home({fetchedUser}) {
     );
   }
 
+  // useEffect(()=>{
+  //   NameVk()
+  // },[])
   const NameVk = ()=>{
     setSearchTerm(fetchedUser.first_name)
   }
 
-  // NameVk()
+
 
   return (
     <>
@@ -183,19 +188,27 @@ function Home({fetchedUser}) {
           <div className='InputParent'>
            <Input type="text" value={searchTerm} onChange={handleInputChange} className='inputStyle' placeholder='Введите имя'/>
            {searchTerm&& <Button onClick={()=>setSearchTerm('')} className='btnDelete' mode='outline' appearance='neutral'>X</Button>}
-           
+           {searchTerm === '' && <Button onClick={()=>{
+              console.log(fetchedUser)
+              NameVk()
+            }} className='btnDelete' mode='outline' appearance='neutral'>VK</Button>}
            {/* <Button className='BtnName' onClick={()=>{
               console.log(fetchedUser)
               NameVk()
-            }}>Имя из ВК</Button> */}
+            }}>VK</Button> */}
+            
           </div>
-           
+
+         {searchTerm && 
+         <div className='netImeniStyle'>
+          {searchResults.length > 0 ? '' : 'Искомое имя не найдено'}
+         </div>}
 
          {searchTerm === '' ? '' : <>
          <ul className='ulStyle'>
             {searchResults.map((result) => (
               <li key={result.id} className='liStyle'>
-              <ItemName name1={result.name} getAnekdots={getAnekdots} zagr={zagr} />
+              <ItemName name1={result.name} getAnekdots={getAnekdots} zagr={zagr}  />
              
               </li>
                ))}

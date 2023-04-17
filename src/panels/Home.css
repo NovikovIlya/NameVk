@@ -128,6 +128,19 @@
     opacity: 0.5 ;
 }
 
+.netImeniStyle{
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.btnKek{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
 .wh{
     width: 100%;
 }
