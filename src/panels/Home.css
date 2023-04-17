@@ -117,6 +117,16 @@
     width: 100%;
     
 }
+.btnDelete{
+    position: absolute;
+    box-shadow: none !important;
+    margin-left: 170px;
+    min-width: 35px;
+    display: flex;
+    align-items: center;
+    height: 35.99px;
+    opacity: 0.5 ;
+}
 
 .wh{
     width: 100%;
@@ -136,4 +146,8 @@
     margin-left: 5px;
 }
 
-
+@media screen and (max-width: 600px) {
+    .btnDelete{
+        height: 44px;
+    }
+}

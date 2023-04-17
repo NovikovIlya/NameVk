@@ -166,6 +166,8 @@ function Home({fetchedUser}) {
     setSearchTerm(fetchedUser.first_name)
   }
 
+  // NameVk()
+
   return (
     <>
      
@@ -179,11 +181,13 @@ function Home({fetchedUser}) {
 
         <div className='miniContainer'>
           <div className='InputParent'>
-           <Input type="text" value={searchTerm} onChange={handleInputChange} className='inputStyle' placeholder='Введите свое имя'/>
-           <Button className='BtnName' onClick={()=>{
+           <Input type="text" value={searchTerm} onChange={handleInputChange} className='inputStyle' placeholder='Введите имя'/>
+           {searchTerm&& <Button onClick={()=>setSearchTerm('')} className='btnDelete' mode='outline' appearance='neutral'>X</Button>}
+           
+           {/* <Button className='BtnName' onClick={()=>{
               console.log(fetchedUser)
               NameVk()
-            }}>Имя из ВК</Button>
+            }}>Имя из ВК</Button> */}
           </div>
            
 
