@@ -132,6 +132,20 @@
     background-color:transparent !important ;
 }
 
+.izbrannoe{
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.izbrannoeBtn{
+    margin-top: 40px;
+    justify-content: center;
+    display: flex;
+    width: 100%;
+}
+
 .netImeniStyle{
     margin-top: 20px;
     display: flex;
@@ -146,6 +160,20 @@
     border:1px solid rgb(212, 212, 212);
     height: 70px;
     align-items: center;
+}
+
+.LastName{
+    margin-top: 30px;
+}
+
+.LastNameDiv{
+    display: flex;
+    justify-content: center;
+}
+
+.LastNameLink{
+    text-decoration: none;
+    text-align: center;
 }
 
 .btnKek{

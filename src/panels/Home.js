@@ -3,6 +3,10 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import './Home.css'
 import bridge from '@vkontakte/vk-bridge';
+import { Icon20FavoriteCircleFillYellow,Icon20NotificationOutline } from '@vkontakte/icons';
+import {useLastName} from './../Store'
+import { Link, useParams } from 'react-router-dom'
+
 
 
 import { Panel, PanelHeader, Header, Button, Group, Cell, Div, Avatar,Title, Text,Input } from '@vkontakte/vkui';
@@ -32,7 +36,7 @@ function Home({fetchedUser}) {
     })
     .catch((error) => { console.log(error); /* Ошибка */ });
 }
-
+  const [poslednieImenas,setPoslednieImenas] = useState([])
 	const [joke, setJoke] = useState('');
 	const [image,setImage] = useState()
 	const [reclama,setReclama] = useState(false)
@@ -71,13 +75,20 @@ function Home({fetchedUser}) {
       },
       
 	]
+
+   const poslendi = (value)=>{
+    setPoslednieImenas(...poslednieImenas,value)
+    console.log(poslednieImenas);
+    
+  }
 	
   function load(){
     setZagr(false)
   }
 
-	function getAnekdots(){
-
+	function getAnekdots(value){
+    
+    console.log(poslednieImenas);
     if(reclama === false){
       async function heh(){
         setZagr(true)
@@ -90,6 +101,8 @@ function Home({fetchedUser}) {
       
     }
     setReclama(true)
+    
+    
 
 
 	}
@@ -171,17 +184,50 @@ function Home({fetchedUser}) {
     setSearchTerm(fetchedUser.first_name)
   }
 
+  function izbranoe(){
+    bridge.send('VKWebAppAddToFavorites')
+  .then((data) => { 
+    if (data.result) {
+      // Мини-приложение или игра добавлены в избранное
+    }
+  })
+  .catch((error) => {
+    // Ошибка
+    console.log(error);
+  });
+  }
 
+  function podiskaUvedomlenie(){
+    bridge.send('VKWebAppAllowNotifications')
+  .then((data) => { 
+    if (data.result) {
+      // Разрешение на отправку уведомлений мини-приложением или игрой получено
+    } else {
+      // Ошибка
+    }
+  })
+  .catch((error) => {
+    // Ошибка
+    console.log(error);
+  });
+  }
+
+
+
+  const LastNameList = useLastName((state)=>state.lastName)
+
+  
 
   return (
     <>
      
       <div className='container'>
         <Title className='TitleStyle' weight="1" level="1" style={{ marginBottom: 16 }}>Узнай значение своего имени!</Title>
-
-
         
 
+       
+
+        
         {zagr? <p>Идет загрузка...</p> : ''}
 
         <div className='miniContainer'>
@@ -198,7 +244,34 @@ function Home({fetchedUser}) {
             }}>VK</Button> */}
             
           </div>
+            {searchTerm === '' ? 
+              <div className='izbrannoe'>
+                <div className='izbrannoeBtn'>
+                    <Button onClick={izbranoe} >
+                        <div className='btnKek '>
+                            <Icon20FavoriteCircleFillYellow/>Добавьте приложение в избранное!
+                        </div>
+                    </Button>
+                </div>
+                <div className='izbrannoeBtn'>
+                    <Button onClick={podiskaUvedomlenie}  >
+                        <div className='btnKek '>
+                             <Icon20NotificationOutline/>Подпишитесь на рассылку!
+                        </div>
+                    </Button>
+                </div>
 
+                <div className='LastName'>
+                  <Title>История поиска</Title>
+                   {[...new Set(LastNameList)].map((LastName)=>(
+                   <div className='LastNameDiv'>
+                      <Link className='LastNameLink' to={`/${LastName}`}>{LastName}</Link>
+                    </div>
+                  ))}
+                </div>
+              </div>
+             : ''
+            }
          {searchTerm && 
          <div className='netImeniStyle'>
           {searchResults.length > 0 ? '' : 'Искомое имя не найдено'}
@@ -208,7 +281,7 @@ function Home({fetchedUser}) {
          <ul className='ulStyle'>
             {searchResults.map((result) => (
               <li key={result.id} className='liStyle'>
-              <ItemName name1={result.name} getAnekdots={getAnekdots} zagr={zagr}  />
+                <ItemName name1={result.name} getAnekdots={getAnekdots} zagr={zagr} poslendi={poslendi}  />
              
               </li>
                ))}

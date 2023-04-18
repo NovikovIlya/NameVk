@@ -7,14 +7,24 @@ import { Icon20ArticleBoxOutline , Icon20Users3, Icon20ArrowUturnLeftOutline, Ic
 import './../Home.css'
 import { Context } from "./../Context";
 import bridge from '@vkontakte/vk-bridge';
+import {useLastName} from './../../Store'
 
 
 
 
-const ItemName = ({name1,getAnekdots,zagr}) => {
+const ItemName = ({name1,getAnekdots,zagr,poslendi}) => {
   const [zagr1,setZagr1] = useState(true)
   const [context, setContext] = useContext(Context);
   const [fetchedUser, setUser] = useState(null);
+  const [poslednieImena,setPoslednieImena] = useState('')
+
+
+
+//   useEffect(()=>{
+//     setPoslednieImena(name1)
+    
+//   },[])
+  
 
   useEffect(() => {
     async function fetchData() {
@@ -31,7 +41,7 @@ const ItemName = ({name1,getAnekdots,zagr}) => {
 
   function wallPost(){
     bridge.send('VKWebAppShowWallPostBox', {
-        message: 'Я узнал тайну своего имени! Узнай и ты!'  + moeName.mean,
+        message: 'Я узнал тайну своего имени! Узнай и ты!' + " "  + moeName.mean,
         attachment: 'https://vk.com/app51616632_70033480',
         owner_id: fetchedUser.id
       })
@@ -97,6 +107,12 @@ const ItemName = ({name1,getAnekdots,zagr}) => {
     
   }
 
+  useEffect(()=>{
+    addNameLast(name)
+  },[])
+
+  const addNameLast = useLastName((state)=>state.addLastName)
+
   return (
     
     <div className={styles.containerItem}>
@@ -106,7 +122,7 @@ const ItemName = ({name1,getAnekdots,zagr}) => {
         {moeName && <>
             <div className={styles.btnParent}>
                 <Link className={styles.btnLink} to='/' >
-                    <Button className={styles.btn}>
+                    <Button   className={styles.btn}>
                         <div className='btnKek'>
                             <Icon20ArrowUturnLeftOutline/>Назад
                         </div>
@@ -141,6 +157,7 @@ const ItemName = ({name1,getAnekdots,zagr}) => {
                              <Icon20ArrowshapeLeft2Outline/>Опубликовать на стене!
                         </div>
                     </Button>
+                    
                 </div>
                 {/* <div className={styles.dateName}>{moeName&& moeName.dateName}</div> */}
             </>}
