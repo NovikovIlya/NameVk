@@ -35,28 +35,20 @@ const App = () => {
 
 	return (
 		
-		<ConfigProvider appearance={themeUser}>
-		{/* <ConfigProvider appearance='light'>  */}
+		// <ConfigProvider appearance={themeUser}>
+		<ConfigProvider appearance='light'> 
 			<AdaptivityProvider>
 				<AppRoot>
 					<SplitLayout >
 						<SplitCol>
 							<Context.Provider value={[context, setContext]}>
-							{/* <View activePanel={activePanel}> */}
 								<HashRouter>
 									<Routes>
 										<Route path='/' element={<Home fetchedUser={fetchedUser}/>} />
 										<Route path='/:name' element={<ItemName />} />
-										
-
 									</Routes>
-								</HashRouter>
-									{/* <Home id='home' fetchedUser={fetchedUser} go={go} /> */}
-								
+								</HashRouter>	
 							</Context.Provider>
-									
-								
-							{/* </View> */}
 						</SplitCol>
 					</SplitLayout>
 				</AppRoot>

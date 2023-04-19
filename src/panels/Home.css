@@ -48,23 +48,7 @@
             justify-content: center;
 }
 
-.jokeParent{
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    padding: 10px;
-    width: 100%;
-}
 
-.joke{
-    text-align: center;
-    width: 100%;
-
-    font-family: var(--vkui--font_title1--font_family--regular);
-}
 
 .vkuiIcon {
     margin-right: 5px;
@@ -97,9 +81,36 @@
 
 }
 
-.vkuiTitle{
+.whBlock{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.sovmesBlock{
     display: flex;
     justify-content: center;
+}
+
+.btnSovmes{
+    padding:8px;
+}
+.wh2{
+    display: flex;
+    justify-content: center;
+}
+
+.TAKs{
+    justify-content:  center !important;
+}
+
+.posleProsmotra{
+    font-size: 2.5vw;
+}
+
+.vkuiTitle{
+    display: flex;
+    justify-content: start;
     align-items: center;
 }
 
@@ -172,8 +183,20 @@
 }
 
 .LastNameLink{
+    margin-top: 10px;
     text-decoration: none;
     text-align: center;
+    text-decoration: none;
+    font-size: 4vw;
+    background-color: #E0EBFF;
+    border-radius: 50px;
+    padding: 13px;
+    /* margin-bottom: 30px; */
+      
+}
+
+.LastNameLink:hover{
+    color:antiquewhite
 }
 
 .btnKek{
@@ -187,14 +210,13 @@
 }
 .zero1{
     opacity: 0;
+    pointer-events:none;
 }
 
-.zagrStyle{
-    /* position: absolute;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5) */
+.zero2{
+    display: none;
 }
+
 
 .BtnName{
     margin-left: 5px;

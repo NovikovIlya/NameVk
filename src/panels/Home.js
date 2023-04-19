@@ -1,33 +1,27 @@
-import React,{useState,useEffect} from 'react';
-import PropTypes from 'prop-types';
-import axios from 'axios';
+import React,{useState,useEffect,useContext} from 'react';
 import './Home.css'
 import bridge from '@vkontakte/vk-bridge';
 import { Icon20FavoriteCircleFillYellow,Icon20NotificationOutline } from '@vkontakte/icons';
 import {useLastName} from './../Store'
 import { Link, useParams } from 'react-router-dom'
-
-
-
 import { Panel, PanelHeader, Header, Button, Group, Cell, Div, Avatar,Title, Text,Input } from '@vkontakte/vkui';
 import ItemName from './Components/ItemName';
+import { Context } from "./Context";
+
 
 function Home({fetchedUser}) {
-
-  bridge.send('VKWebAppCheckNativeAds', { ad_format: 'reward' })
+  bridge.send('VKWebAppCheckNativeAds', { ad_format: 'interstitial' })
   .then((data) => {
     if (data.result) {
-
     } else {
       console.log('Рекламные материалы не найдены.');
     }
   })
   .catch((error) => { console.log(error); /* Ошибка */  });
 
-  function fooButtonClick()
-{
+  function fooButtonClick(){
   // Показать рекламу
-  bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
+  bridge.send('VKWebAppShowNativeAds', { ad_format: 'interstitial' })
     .then((data) => {
       if (data.result) // Успех
         console.log('Реклама показана');
@@ -35,10 +29,10 @@ function Home({fetchedUser}) {
         console.log('Ошибка при показе');
     })
     .catch((error) => { console.log(error); /* Ошибка */ });
-}
+  }
+
+  const [context, setContext] = useContext(Context);
   const [poslednieImenas,setPoslednieImenas] = useState([])
-	const [joke, setJoke] = useState('');
-	const [image,setImage] = useState()
 	const [reclama,setReclama] = useState(false)
   const [zagr,setZagr] = useState(false)
 	const [netImeni,setNetImeni] = useState(false)
@@ -47,7 +41,8 @@ function Home({fetchedUser}) {
           name: "Августин",
           mean: "\"Августин\" - это имя латинского происхождения, которое переводится как \"величественный\", \"возвышенный\", \"почтенный\".",
           people: "",
-          dateName: ""
+          dateName: "",
+          compatibility: 'Вопрос совместимость имени Августин с женскими именами достаточно сложен, впрочем, как и в случае с другими наименованиями. И тем не менее, имеется утверждение, согласно коему, наилучшей он является в случае создания пары с женщинами, именующимися такими вариациями как Лолита, Каролина, Кристина, Татьяна, Алевтина, Василиса, Наталья и Елизавета. Судя по всему, тут имеются высокие шансы на успешное построение реально крепкой и счастливой пары. Августа, Анфиса, Вероника, Элеонора, Прасковья, Стефания и Клавдия – в случае построения отношений с дамами, именующимися этими вариантами именоформ, совместимость чуть похуже. И все же. В паре обязательно будет взаимопонимание, любовь, страсть и искренность. Просто все это может резко и в самый неожиданный момент замениться на безудержную ревность и разногласия со скандалами по незначительным поводам. Особенно если характеры у обоих слишком взрывные. А с Тамилой, Ренатой, Серафимой, Станиславой, Стеллой, Варварой и Валерией астрологи и вовсе не рекомендуют создавать союз, ибо тут ни звездами, ни значениями имен не предусматривается никакой совместимость. Тут будут лишь ссоры и сплошной негатив. Хотя все это не стопроцентно точные утверждения.',
       },
       {
           name: "Агап",
@@ -78,34 +73,34 @@ function Home({fetchedUser}) {
 
    const poslendi = (value)=>{
     setPoslednieImenas(...poslednieImenas,value)
-    console.log(poslednieImenas);
-    
   }
 	
   function load(){
     setZagr(false)
   }
 
-	function getAnekdots(value){
-    
-    console.log(poslednieImenas);
+	function getAnekdots(){
     if(reclama === false){
       async function heh(){
         setZagr(true)
         // setTimeout(load,2000)
         setTimeout(fooButtonClick,2000)
-        
-        
       }
       heh()
-      
     }
     setReclama(true)
-    
-    
-
-
 	}
+
+  const zagryzimReclamy1 = ()=>{
+    if(context !== false){
+        getAnekdots()
+        setTimeout(menyamZagr2,5000)
+    } 
+  }
+
+  const menyamZagr2 = ()=>{
+    setContext(false)
+  }
 
 
   const [searchTerm, setSearchTerm] = useState('');
@@ -119,7 +114,6 @@ function Home({fetchedUser}) {
     if (searchResults === '' && searchTerm != '' ){
       console.log('Нет таких имен!');
       console.log(searchResults);
-      
       setNetImeni(true)
       
     }else if (searchTerm == ''){
@@ -136,8 +130,6 @@ function Home({fetchedUser}) {
   const searchResults = getSearchResults(searchTerm);
 
   
- 
-
   function getSearchResults(query) {
     const data = [
       {
@@ -177,9 +169,7 @@ function Home({fetchedUser}) {
     );
   }
 
-  // useEffect(()=>{
-  //   NameVk()
-  // },[])
+
   const NameVk = ()=>{
     setSearchTerm(fetchedUser.first_name)
   }
@@ -222,11 +212,7 @@ function Home({fetchedUser}) {
     <>
      
       <div className='container'>
-        <Title className='TitleStyle' weight="1" level="1" style={{ marginBottom: 16 }}>Узнай значение своего имени!</Title>
-        
-
-       
-
+        <Title className='TitleStyle TAKs' weight="1" level="1" style={{ marginBottom: 16 }}>Узнай значение своего имени!</Title>
         
         {zagr? <p>Идет загрузка...</p> : ''}
 
@@ -238,10 +224,7 @@ function Home({fetchedUser}) {
               console.log(fetchedUser)
               NameVk()
             }} className='btnDelete' mode='outline' appearance='neutral'>VK</Button>}
-           {/* <Button className='BtnName' onClick={()=>{
-              console.log(fetchedUser)
-              NameVk()
-            }}>VK</Button> */}
+
             
           </div>
             {searchTerm === '' ? 
@@ -262,12 +245,18 @@ function Home({fetchedUser}) {
                 </div>
 
                 <div className='LastName'>
+                {LastNameList.length > 0 ? <>
                   <Title>История поиска</Title>
                    {[...new Set(LastNameList)].map((LastName)=>(
+                    LastName &&
                    <div className='LastNameDiv'>
-                      <Link className='LastNameLink' to={`/${LastName}`}>{LastName}</Link>
+                      
+                      <Link className='LastNameLink' to={`/${LastName}`}>
+                      <div onClick={zagryzimReclamy1}>{LastName}</div>
+                      </Link>
                     </div>
                   ))}
+                  </>: ""}
                 </div>
               </div>
              : ''
@@ -287,10 +276,9 @@ function Home({fetchedUser}) {
                ))}
         
         
-               </ul>
+          </ul>
           </>}
-    </div>
-      
+        </div>
       </div>
     </>
   );

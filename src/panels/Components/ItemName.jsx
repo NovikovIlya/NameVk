@@ -2,29 +2,49 @@ import { Button,Text,Title} from '@vkontakte/vkui'
 import React,{useEffect, useState,createContext,useContext} from 'react'
 import { Link, useParams } from 'react-router-dom'
 import styles from './ItemName.module.css'
-import Home from '../Home'
-import { Icon20ArticleBoxOutline , Icon20Users3, Icon20ArrowUturnLeftOutline, Icon20ArrowshapeLeft2Outline} from '@vkontakte/icons';
+import { Icon20ArticleBoxOutline , Icon20Users3, Icon20ArrowUturnLeftOutline, Icon20ArrowshapeLeft2Outline,Icon20LikeCircleFillRed} from '@vkontakte/icons';
 import './../Home.css'
 import { Context } from "./../Context";
 import bridge from '@vkontakte/vk-bridge';
 import {useLastName} from './../../Store'
 
 
-
-
 const ItemName = ({name1,getAnekdots,zagr,poslendi}) => {
   const [zagr1,setZagr1] = useState(true)
   const [context, setContext] = useContext(Context);
   const [fetchedUser, setUser] = useState(null);
-  const [poslednieImena,setPoslednieImena] = useState('')
+  const [sovmestimostOpen,setSovmestimostOpen] = useState(false)
 
+  // Проверка готовности рекламы
+bridge.send('VKWebAppCheckNativeAds', { ad_format: 'reward' })
+.then((data) => {
+  if (data.result) {
+    // Предзагруженная реклама есть.
 
+    // Теперь можно создать кнопку
+    // "Посмотрите рекламу".   
+    // ...
+          
+  } else {
+    console.log('Рекламные материалы не найдены.');
+  }
+})
+.catch((error) => { console.log(error); /* Ошибка */  });
 
-//   useEffect(()=>{
-//     setPoslednieImena(name1)
-    
-//   },[])
-  
+// Обработчик нажатия кнопки "Посмотрите рекламу"
+function fooButtonClickReward()
+{
+// Показать рекламу
+bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
+  .then((data) => {
+    if (data.result) // Успех
+      console.log('Реклама показана');
+    else // Ошибка 
+      console.log('Ошибка при показе');
+  })
+  .catch((error) => { console.log(error); /* Ошибка */ });
+}
+
 
   useEffect(() => {
     async function fetchData() {
@@ -61,7 +81,6 @@ const ItemName = ({name1,getAnekdots,zagr,poslendi}) => {
     setContext(false)
   }
 
-  const zet = name1
   const {name} = useParams()
 
   const data1 = [
@@ -69,7 +88,8 @@ const ItemName = ({name1,getAnekdots,zagr,poslendi}) => {
       name: "Августин",
       mean: "\"Августин\" - это имя латинского происхождения, которое переводится как \"величественный\", \"возвышенный\", \"почтенный\".",
       people: "",
-      dateName: ""
+      dateName: "",
+      compatibility: 'Вопрос совместимость имени Августин с женскими именами достаточно сложен, впрочем, как и в случае с другими наименованиями. И тем не менее, имеется утверждение, согласно коему, наилучшей он является в случае создания пары с женщинами, именующимися такими вариациями как Лолита, Каролина, Кристина, Татьяна, Алевтина, Василиса, Наталья и Елизавета. Судя по всему, тут имеются высокие шансы на успешное построение реально крепкой и счастливой пары. Августа, Анфиса, Вероника, Элеонора, Прасковья, Стефания и Клавдия – в случае построения отношений с дамами, именующимися этими вариантами именоформ, совместимость чуть похуже. И все же. В паре обязательно будет взаимопонимание, любовь, страсть и искренность. Просто все это может резко и в самый неожиданный момент замениться на безудержную ревность и разногласия со скандалами по незначительным поводам. Особенно если характеры у обоих слишком взрывные. А с Тамилой, Ренатой, Серафимой, Станиславой, Стеллой, Варварой и Валерией астрологи и вовсе не рекомендуют создавать союз, ибо тут ни звездами, ни значениями имен не предусматривается никакой совместимость. Тут будут лишь ссоры и сплошной негатив. Хотя все это не стопроцентно точные утверждения.',
   },
   {
       name: "Агап",
@@ -98,23 +118,25 @@ const ItemName = ({name1,getAnekdots,zagr,poslendi}) => {
   ];
 
   const moeName = data1.find(item=>item.name === name)
-  console.log(moeName);
 
   const zagryzimReclamy = ()=>{
     if(context !== false){
         getAnekdots()
-    }
-    
+    } 
   }
 
   useEffect(()=>{
     addNameLast(name)
   },[])
 
+  const sovmesMakeOpen = ()=>{
+    setSovmestimostOpen(true)
+    fooButtonClickReward()
+  }
+
   const addNameLast = useLastName((state)=>state.addLastName)
 
   return (
-    
     <div className={styles.containerItem}>
     
     { moeName && context? <p>Идет загрузка...</p> : ''}
@@ -128,16 +150,11 @@ const ItemName = ({name1,getAnekdots,zagr,poslendi}) => {
                         </div>
                     </Button>
                 </Link>
-                {/* <Button className={styles.btn}>
-                    <Link className={styles.btnLink} to='/' >Назад</Link>
-                </Button> */}
             </div>
         </>}
         </div>
 
-        
-        
-        <div className={`  ${moeName? context? 'zero1' : '' : ''}`}>
+        <div className={` whBlock ${moeName? context? 'zero1' : '' : ''}`}>
             {moeName ? '' : <>
             <Link onClick={zagryzimReclamy} className={styles.item}  to={`/${name1}`}>{name1}</Link>
             </>}
@@ -151,6 +168,21 @@ const ItemName = ({name1,getAnekdots,zagr,poslendi}) => {
                     <Title><Icon20Users3 />Известные люди</Title>
                     <p className={styles.pStyle}>{moeName&& moeName.people}</p>
                 </div>
+
+                <div className='sovmesBlock'>
+                  <Button onClick={sovmesMakeOpen} className={` btnSovmes ${sovmestimostOpen? 'zero2' : ''}`}>
+                    <div>Узнать совместимость имени!</div>
+                    <div className='posleProsmotra'>после просмотра рекламы</div>
+                  </Button>
+                </div>
+
+                <div className={` wh2 ${sovmestimostOpen? '' : 'zero2'}`}>
+                  <div className={styles.people}>
+                      <Title><Icon20LikeCircleFillRed />Совместимость</Title>
+                      <p className={styles.pStyle}>{moeName&& moeName.compatibility}</p>
+                  </div>
+                </div>
+
                 <div className={styles.btnParent}>
                     <Button onClick={wallPost} className={styles.btn}>
                         <div className='btnKek'>
@@ -159,7 +191,7 @@ const ItemName = ({name1,getAnekdots,zagr,poslendi}) => {
                     </Button>
                     
                 </div>
-                {/* <div className={styles.dateName}>{moeName&& moeName.dateName}</div> */}
+               
             </>}
         </div>
         

@@ -43,22 +43,38 @@
   text-decoration: none;
 }
 
+.mean,.people{
+  border: #69696982  1px solid;
+  margin-bottom: 20px;
+  max-width: 90%;
+  min-width: 90%;
+}
+
 .mean {
-  width: 100%;
+  
   margin-top: 5px;
   text-align: center;
+  
+  
+  border-radius: 10px;
+  
 }
 
 .people {
-    width: 100%;
+    
     margin-top: 5px;
     text-align: center;
+
+    
+    border-radius: 10px;
   }
 
 .pStyle {
   margin-top: 5px;
   padding: 10px;
-  text-align: center;
+  text-align: start;
+  margin-bottom: 5px;
+  font-size: 4vw;
 }
 
 @media screen and (max-width: 600px) {

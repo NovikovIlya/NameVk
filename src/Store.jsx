@@ -1,19 +1,22 @@
 import { create } from 'zustand'
+import { persist, createJSONStorage } from 'zustand/middleware'
 import { nanoid } from 'nanoid'
 
-export const  useLastName = create((set)=>({
+export const  useLastName = create(
+    persist(
+    (set)=>({
     lastName: [
-        // { id:1, test: 123},
-    ],
-    // newLastName: '',
-    addLastName: (test) => set(state => {
-        
 
+    ],
+    
+    addLastName: (test) => set(state => {
         const newLastName = test
 
-        return {lastName:[newLastName,...state.lastName]
-        }
+        return {lastName:[newLastName,...state.lastName]}
     })
     
-}))
+  }),{
+    name:'storageZus',
+  }
+))
 
