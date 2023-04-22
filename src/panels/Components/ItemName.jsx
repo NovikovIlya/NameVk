@@ -120,7 +120,7 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
   //     dateName: "1 января"
   // },
   // ];
-  console.log('eee',name);
+  // console.log('eee',name);
   const moeName = data1.find(item=>item.name === name)
   
   

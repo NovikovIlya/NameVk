@@ -733,13 +733,13 @@ export const dataZeroName = [
                 name: "Августин",
             },
             {
-                name: "Августин",
+                name: "Аделина",
             },
             {
-                name: "Августин",
+                name: "Саша",
             },
             {
-                name: "Августин",
+                name: "Михаил",
             },
             {
                 name: "Августин",

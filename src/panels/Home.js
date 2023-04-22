@@ -109,10 +109,16 @@ function Home({fetchedUser}) {
 
   const [searchTerm, setSearchTerm] = useState('');
   const [searchTerm1, setSearchTerm1] = useState('');
+  const [pokaz,setPokaz] = useState(false)
 
   const handleInputChange = (event) => {
     
     setSearchTerm1(event.target.value);
+    if (searchTerm1.length > 5){
+      setPokaz(true)
+    }else if (searchTerm1.length >= 5){
+      setPokaz(false)
+    }
     // console.log(searchTerm);
     // console.log('111',searchResults);
 
@@ -133,7 +139,7 @@ function Home({fetchedUser}) {
   const handle = (event) => {
     
     setSearchTerm(searchTerm1);
-   
+    setPokaz(true)
 
     if (searchResults === '' && searchTerm != '' ){
       console.log('Нет таких имен!');
@@ -166,6 +172,7 @@ function Home({fetchedUser}) {
 
   const NameVk = ()=>{
     setSearchTerm(fetchedUser.first_name)
+    setSearchTerm1(fetchedUser.first_name)
   }
 
   function izbranoe(){
@@ -227,18 +234,23 @@ function Home({fetchedUser}) {
         <div className='miniContainer'>
           <div className='InputParent'>
           
-           <Input type="text" value={searchTerm1} onChange={handleInputChange} className='inputStyle' placeholder='Введите имя'/>
+          <Input type="text" value={searchTerm1} onChange={handleInputChange} className='inputStyle' placeholder='Введите имя'/>
           <Button className='btnPoisk' onClick={handle}>Найти</Button>
           
-           {searchTerm&& <Button onClick={()=>setSearchTerm('')} className='btnDelete' mode='outline' appearance='neutral'>X</Button>}
-           {searchTerm === '' && <Button onClick={()=>{
+           {searchTerm1&& <Button onClick={()=>{
+            setPokaz(false)
+            setSearchTerm1('')
+            setSearchTerm('')}} className='btnDelete' mode='outline' appearance='neutral'>X</Button>}
+
+           {searchTerm1 === '' && <Button onClick={()=>{
               console.log(fetchedUser)
               NameVk()
+
             }} className='btnDelete' mode='outline' appearance='neutral'>VK</Button>}
 
             
           </div>
-            {searchTerm === '' ? 
+            { pokaz === false? 
            
               <div className='izbrannoe'>
                <div className='izbrannoeBtn'>
