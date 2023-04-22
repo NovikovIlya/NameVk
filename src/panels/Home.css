@@ -1,9 +1,3 @@
-/*
-* Prefixed by https://autoprefixer.github.io
-* PostCSS: v8.4.14,
-* Autoprefixer: v10.4.7
-* Browsers: last 4 version
-*/
 
 .container{
     display: -webkit-box;
@@ -24,8 +18,12 @@
 }
 
 .TitleStyle {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     text-align: center !important;
 }
 
@@ -35,7 +33,7 @@
 
 .vkuiTitle {
     padding: 10px;
-    text-align: start;
+    text-align: flex-start;
 }
 
 .btnParent{
@@ -72,8 +70,12 @@
     width: 100%;
 }
 .InputParent{
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
 }
 
 .inputStyle{
@@ -82,43 +84,72 @@
 }
 
 .whBlock{
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
 }
 
 .sovmesBlock{
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
 }
 
 .btnSovmes{
     padding:8px;
 }
 .wh2{
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
 }
 
 .TAKs{
-    justify-content:  center !important;
+    -webkit-box-pack:  center !important;
+        -ms-flex-pack:  center !important;
+            justify-content:  center !important;
 }
 
 .posleProsmotra{
-    font-size: 2.5vw;
+    font-size: 10px;
 }
 
 .vkuiTitle{
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: start;
-    align-items: center;
+    -webkit-box-pack: flex-start;
+        -ms-flex-pack: flex-start;
+            justify-content: flex-start;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
 }
 
 .ulStyle{
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
     padding: 10px;
 
 }
@@ -130,11 +161,17 @@
 }
 .btnDelete{
     position: absolute;
-    box-shadow: none !important;
-    margin-left: 155.5px;
+    -webkit-box-shadow: none !important;
+            box-shadow: none !important;
+    /* margin-left: 155.5px; */
+    margin-left: 90px;
     min-width: 35px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     height: 35.99px;
     opacity: 0.5 ;
 }
@@ -145,32 +182,52 @@
 
 .izbrannoe{
     margin-top: 40px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
 }
 
 .izbrannoeBtn{
     margin-top: 40px;
-    justify-content: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     width: 100%;
 }
 
 .netImeniStyle{
     margin-top: 20px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
 }
 
 .binb{
     width: 100% ;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     border:1px solid rgb(212, 212, 212);
     height: 70px;
-    align-items: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
 }
 
 .LastName{
@@ -178,8 +235,12 @@
 }
 
 .LastNameDiv{
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
 }
 
 .LastNameLink{
@@ -198,11 +259,38 @@
 .LastNameLink:hover{
     color:antiquewhite
 }
-
-.btnKek{
+.vv{
+    width: 100%;
     display: flex;
-    flex-wrap: wrap;
-    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+.vv2{
+    width: 100%;
+}
+.vv3{
+    text-decoration: none;
+}
+.btnKek{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+}
+.btnKek1{
+    text-decoration: none;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
 }
 
 .wh{
@@ -221,9 +309,32 @@
 .BtnName{
     margin-left: 5px;
 }
+.btnPoisk{
+
+}
+
+.red{
+    color:red;
+}
+
+.btn2{
+    width: 30% ;
+}
+.whBlock1{
+    margin-bottom: 20px;
+}
 
 @media screen and (max-width: 600px) {
     .btnDelete{
         height: 44px;
+    }
+    .posleProsmotra{
+        font-size: 2.5vw;
+    }
+    .btn2{
+        width: 80% ;
+    }
+    .vv4{
+        font-size: 3.1vw;
     }
 }

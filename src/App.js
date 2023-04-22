@@ -3,7 +3,7 @@ import bridge from '@vkontakte/vk-bridge';
 import { View, ScreenSpinner, AdaptivityProvider, AppRoot, ConfigProvider, SplitLayout, SplitCol, Panel } from '@vkontakte/vkui';
 import '@vkontakte/vkui/dist/vkui.css';
 import {BrowserRouter, HashRouter,Route,Routes} from 'react-router-dom'
-
+import Top from './panels/Components/Top';
 import Home from './panels/Home';
 import ItemName from './panels/Components/ItemName';
 import { Context } from "./panels/Context.jsx";
@@ -13,6 +13,7 @@ const App = () => {
 	const [activePanel, setActivePanel] = useState('home');
 	const [fetchedUser, setUser] = useState(null);
 	const [themeUser,setThemeUser] = useState('')
+	
 	
 
 	useEffect(() => {
@@ -46,6 +47,7 @@ const App = () => {
 									<Routes>
 										<Route path='/' element={<Home fetchedUser={fetchedUser}/>} />
 										<Route path='/:name' element={<ItemName />} />
+										<Route path='/top' element={<Top />} />
 									</Routes>
 								</HashRouter>	
 							</Context.Provider>

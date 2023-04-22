@@ -1,12 +1,15 @@
 import React,{useState,useEffect,useContext} from 'react';
 import './Home.css'
 import bridge from '@vkontakte/vk-bridge';
-import { Icon20FavoriteCircleFillYellow,Icon20NotificationOutline } from '@vkontakte/icons';
+import { Icon20FavoriteCircleFillYellow,Icon20NotificationOutline ,Icon20CrownCircleFillVkDating} from '@vkontakte/icons';
 import {useLastName} from './../Store'
 import { Link, useParams } from 'react-router-dom'
 import { Panel, PanelHeader, Header, Button, Group, Cell, Div, Avatar,Title, Text,Input } from '@vkontakte/vkui';
 import ItemName from './Components/ItemName';
 import { Context } from "./Context";
+import {dataZero} from './../data'
+import {dataZeroName} from './../dataName'
+import Top from './Components/Top';
 
 
 function Home({fetchedUser}) {
@@ -36,40 +39,41 @@ function Home({fetchedUser}) {
 	const [reclama,setReclama] = useState(false)
   const [zagr,setZagr] = useState(false)
 	const [netImeni,setNetImeni] = useState(false)
-	const andeknodts = [
-      {
-          name: "Августин",
-          mean: "\"Августин\" - это имя латинского происхождения, которое переводится как \"величественный\", \"возвышенный\", \"почтенный\".",
-          people: "",
-          dateName: "",
-          compatibility: 'Вопрос совместимость имени Августин с женскими именами достаточно сложен, впрочем, как и в случае с другими наименованиями. И тем не менее, имеется утверждение, согласно коему, наилучшей он является в случае создания пары с женщинами, именующимися такими вариациями как Лолита, Каролина, Кристина, Татьяна, Алевтина, Василиса, Наталья и Елизавета. Судя по всему, тут имеются высокие шансы на успешное построение реально крепкой и счастливой пары. Августа, Анфиса, Вероника, Элеонора, Прасковья, Стефания и Клавдия – в случае построения отношений с дамами, именующимися этими вариантами именоформ, совместимость чуть похуже. И все же. В паре обязательно будет взаимопонимание, любовь, страсть и искренность. Просто все это может резко и в самый неожиданный момент замениться на безудержную ревность и разногласия со скандалами по незначительным поводам. Особенно если характеры у обоих слишком взрывные. А с Тамилой, Ренатой, Серафимой, Станиславой, Стеллой, Варварой и Валерией астрологи и вовсе не рекомендуют создавать союз, ибо тут ни звездами, ни значениями имен не предусматривается никакой совместимость. Тут будут лишь ссоры и сплошной негатив. Хотя все это не стопроцентно точные утверждения.',
-      },
-      {
-          name: "Агап",
-          mean: "\"Агап\" - это имя греческого происхождения, которое переводится как \"любовь\", \"любящий\".",
-          people: "",
-          dateName: ""
-      },
-      {
-          name: "Агата",
-          mean: "\"Агата\" - это имя греческого происхождения, которое переводится как \"благородная\", \"добрая\", \"благоприятствующая\".",
-          people: "",
-          dateName: ""
-      },
-      {
-          name: "Агафья",
-          mean: "\"Агафья\" - это имя греческого происхождения, которое переводится как \"добрый\", \"благой\", \"благоприятствующий\".",
-          people: "",
-          dateName: ""
-      },
-      {
-          name: "Адам",
-          mean: "\"Адам\" - это имя еврейского происхождения, которое переводится как \"человек\", \"человечество\", \"земля\".",
-          people: "Адам из игры Дес Икс ",
-          dateName: "1 января"
-      },
+  const [conditionValue,setContditionValue] = useState(false)
+  const andeknodts = dataZero
+	// const andeknodts = [
+  //     {
+  //         name: "Августин",
+  //         mean: "\"Августин\" - это имя латинского происхождения, которое переводится как \"величественный\", \"возвышенный\", \"почтенный\".",
+  //         people: "",
+  //         dateName: "",
+ 
+  //     {
+  //         name: "Агап",
+  //         mean: "\"Агап\" - это имя греческого происхождения, которое переводится как \"любовь\", \"любящий\".",
+  //         people: "",
+  //         dateName: ""
+  //     },
+  //     {
+  //         name: "Агата",
+  //         mean: "\"Агата\" - это имя греческого происхождения, которое переводится как \"благородная\", \"добрая\", \"благоприятствующая\".",
+  //         people: "",
+  //         dateName: ""
+  //     },
+  //     {
+  //         name: "Агафья",
+  //         mean: "\"Агафья\" - это имя греческого происхождения, которое переводится как \"добрый\", \"благой\", \"благоприятствующий\".",
+  //         people: "",
+  //         dateName: ""
+  //     },
+  //     {
+  //         name: "Адам",
+  //         mean: "\"Адам\" - это имя еврейского происхождения, которое переводится как \"человек\", \"человечество\", \"земля\".",
+  //         people: "Адам из игры Дес Икс ",
+  //         dateName: "1 января"
+  //     },
       
-	]
+	// ]
 
    const poslendi = (value)=>{
     setPoslednieImenas(...poslednieImenas,value)
@@ -104,12 +108,32 @@ function Home({fetchedUser}) {
 
 
   const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm1, setSearchTerm1] = useState('');
 
   const handleInputChange = (event) => {
     
-    setSearchTerm(event.target.value);
-    console.log(searchTerm);
-    console.log('111',searchResults);
+    setSearchTerm1(event.target.value);
+    // console.log(searchTerm);
+    // console.log('111',searchResults);
+
+    // if (searchResults === '' && searchTerm != '' ){
+    //   console.log('Нет таких имен!');
+    //   console.log(searchResults);
+    //   setNetImeni(true)
+      
+    // }else if (searchTerm == ''){
+    //   setNetImeni(false)
+    // }
+    // else {
+    //   setNetImeni(false)
+    // }
+    
+  };
+
+  const handle = (event) => {
+    
+    setSearchTerm(searchTerm1);
+   
 
     if (searchResults === '' && searchTerm != '' ){
       console.log('Нет таких имен!');
@@ -131,41 +155,11 @@ function Home({fetchedUser}) {
 
   
   function getSearchResults(query) {
-    const data = [
-      {
-        name: "Августин",
-        mean: "\"Августин\" - это имя латинского происхождения, которое переводится как \"величественный\", \"возвышенный\", \"почтенный\".",
-        people: "",
-        dateName: ""
-    },
-    {
-        name: "Агап",
-        mean: "\"Агап\" - это имя греческого происхождения, которое переводится как \"любовь\", \"любящий\".",
-        people: "",
-        dateName: ""
-    },
-    {
-        name: "Агата",
-        mean: "\"Агата\" - это имя греческого происхождения, которое переводится как \"благородная\", \"добрая\", \"благоприятствующая\".",
-        people: "",
-        dateName: ""
-    },
-    {
-        name: "Агафья",
-        mean: "\"Агафья\" - это имя греческого происхождения, которое переводится как \"добрый\", \"благой\", \"благоприятствующий\".",
-        people: "",
-        dateName: ""
-    },
-    {
-        name: "Адам",
-        mean: "\"Адам\" - это имя еврейского происхождения, которое переводится как \"человек\", \"человечество\", \"земля\".",
-        people: "",
-        dateName: ""
-    },
-    ];
+    const data = dataZeroName
   
     return data.filter((item) =>
       item.name.toLowerCase().includes(query.toLowerCase())
+      // Object.keys(item).join().toLowerCase().includes(query.toLowerCase())
     );
   }
 
@@ -206,7 +200,21 @@ function Home({fetchedUser}) {
 
   const LastNameList = useLastName((state)=>state.lastName)
 
-  
+  window.addEventListener('online',  updateOnlineStatus);
+	  window.addEventListener('offline', updateOnlineStatus);
+	  let condition
+		function updateOnlineStatus(event) {
+		 condition = navigator.onLine ? "online" : "offline";
+		// document.body.className = condition;
+		console.log(condition);
+		if (condition === 'offline'){
+			setContditionValue(true)
+		}
+		if (condition === 'online'){
+			setContditionValue(false)
+		}
+		
+	}
 
   return (
     <>
@@ -218,7 +226,10 @@ function Home({fetchedUser}) {
 
         <div className='miniContainer'>
           <div className='InputParent'>
-           <Input type="text" value={searchTerm} onChange={handleInputChange} className='inputStyle' placeholder='Введите имя'/>
+          
+           <Input type="text" value={searchTerm1} onChange={handleInputChange} className='inputStyle' placeholder='Введите имя'/>
+          <Button className='btnPoisk' onClick={handle}>Найти</Button>
+          
            {searchTerm&& <Button onClick={()=>setSearchTerm('')} className='btnDelete' mode='outline' appearance='neutral'>X</Button>}
            {searchTerm === '' && <Button onClick={()=>{
               console.log(fetchedUser)
@@ -228,25 +239,35 @@ function Home({fetchedUser}) {
             
           </div>
             {searchTerm === '' ? 
+           
               <div className='izbrannoe'>
+               <div className='izbrannoeBtn'>
+                <Link className='vv' to='top'>
+                    <Button appearance='negative' className='btn2 vv2'  >
+                        <div className='btnKek vv3'>
+                             <Icon20CrownCircleFillVkDating/><p className='vv3 vv4'>Топ 10 популярных имен в 2022!</p>
+                        </div>
+                    </Button>
+                  </Link>
+                </div>
                 <div className='izbrannoeBtn'>
-                    <Button onClick={izbranoe} >
+                    <Button className='btn2' onClick={izbranoe} >
                         <div className='btnKek '>
-                            <Icon20FavoriteCircleFillYellow/>Добавьте приложение в избранное!
+                            <Icon20FavoriteCircleFillYellow/><p className='vv4'>Добавьте приложение в избранное! </p> 
                         </div>
                     </Button>
                 </div>
                 <div className='izbrannoeBtn'>
-                    <Button onClick={podiskaUvedomlenie}  >
+                    <Button className='btn2' onClick={podiskaUvedomlenie}  >
                         <div className='btnKek '>
-                             <Icon20NotificationOutline/>Подпишитесь на рассылку!
+                             <Icon20NotificationOutline/><p className='vv4'>Подпишитесь на рассылку!</p>
                         </div>
                     </Button>
                 </div>
 
                 <div className='LastName'>
                 {LastNameList.length > 0 ? <>
-                  <Title>История поиска</Title>
+                  <Title className='TAKs'>История поиска</Title>
                    {[...new Set(LastNameList)].map((LastName)=>(
                     LastName &&
                    <div className='LastNameDiv'>
@@ -279,6 +300,7 @@ function Home({fetchedUser}) {
           </ul>
           </>}
         </div>
+        {conditionValue && <p className ='red'>Потеряна связь с интернетом</p>}
       </div>
     </>
   );

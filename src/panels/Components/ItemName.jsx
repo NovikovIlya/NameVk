@@ -2,11 +2,14 @@ import { Button,Text,Title} from '@vkontakte/vkui'
 import React,{useEffect, useState,createContext,useContext} from 'react'
 import { Link, useParams } from 'react-router-dom'
 import styles from './ItemName.module.css'
-import { Icon20ArticleBoxOutline , Icon20Users3, Icon20ArrowUturnLeftOutline, Icon20ArrowshapeLeft2Outline,Icon20LikeCircleFillRed} from '@vkontakte/icons';
+import { Icon20ArticleBoxOutline , Icon20Users3, Icon20ArrowUturnLeftOutline, Icon20ArrowshapeLeft2Outline,Icon20LikeCircleFillRed,Icon20ViewOutline,Icon20StarsFilled} from '@vkontakte/icons';
 import './../Home.css'
 import { Context } from "./../Context";
 import bridge from '@vkontakte/vk-bridge';
 import {useLastName} from './../../Store'
+import {dataZero} from './../../data'
+
+
 
 
 const ItemName = ({name1,getAnekdots,zagr,poslendi}) => {
@@ -14,6 +17,7 @@ const ItemName = ({name1,getAnekdots,zagr,poslendi}) => {
   const [context, setContext] = useContext(Context);
   const [fetchedUser, setUser] = useState(null);
   const [sovmestimostOpen,setSovmestimostOpen] = useState(false)
+  const [conditionValue,setContditionValue] = useState(false)
 
   // Проверка готовности рекламы
 bridge.send('VKWebAppCheckNativeAds', { ad_format: 'reward' })
@@ -82,42 +86,44 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
   }
 
   const {name} = useParams()
-
-  const data1 = [
-    {
-      name: "Августин",
-      mean: "\"Августин\" - это имя латинского происхождения, которое переводится как \"величественный\", \"возвышенный\", \"почтенный\".",
-      people: "",
-      dateName: "",
-      compatibility: 'Вопрос совместимость имени Августин с женскими именами достаточно сложен, впрочем, как и в случае с другими наименованиями. И тем не менее, имеется утверждение, согласно коему, наилучшей он является в случае создания пары с женщинами, именующимися такими вариациями как Лолита, Каролина, Кристина, Татьяна, Алевтина, Василиса, Наталья и Елизавета. Судя по всему, тут имеются высокие шансы на успешное построение реально крепкой и счастливой пары. Августа, Анфиса, Вероника, Элеонора, Прасковья, Стефания и Клавдия – в случае построения отношений с дамами, именующимися этими вариантами именоформ, совместимость чуть похуже. И все же. В паре обязательно будет взаимопонимание, любовь, страсть и искренность. Просто все это может резко и в самый неожиданный момент замениться на безудержную ревность и разногласия со скандалами по незначительным поводам. Особенно если характеры у обоих слишком взрывные. А с Тамилой, Ренатой, Серафимой, Станиславой, Стеллой, Варварой и Валерией астрологи и вовсе не рекомендуют создавать союз, ибо тут ни звездами, ни значениями имен не предусматривается никакой совместимость. Тут будут лишь ссоры и сплошной негатив. Хотя все это не стопроцентно точные утверждения.',
-  },
-  {
-      name: "Агап",
-      mean: "\"Агап\" - это имя греческого происхождения, которое переводится как \"любовь\", \"любящий\".",
-      people: "",
-      dateName: ""
-  },
-  {
-      name: "Агата",
-      mean: "\"Агата\" - это имя греческого происхождения, которое переводится как \"благородная\", \"добрая\", \"благоприятствующая\".",
-      people: "",
-      dateName: ""
-  },
-  {
-      name: "Агафья",
-      mean: "\"Агафья\" - это имя греческого происхождения, которое переводится как \"добрый\", \"благой\", \"благоприятствующий\".",
-      people: "",
-      dateName: ""
-  },
-  {
-      name: "Адам",
-      mean: "\"Адам\" - это имя еврейского происхождения, которое переводится как \"человек\", \"человечество\", \"земля\".",
-      people: "Адам из игры деус икс",
-      dateName: "1 января"
-  },
-  ];
-
+  const data1 = dataZero
+  // const data1 = [
+  //   {
+  //     name: "Августин",
+  //     mean: "\"Августин\" - это имя латинского происхождения, которое переводится как \"величественный\", \"возвышенный\", \"почтенный\".",
+  //     people: "",
+  //     dateName: "",
+  
+  // },
+  // {
+  //     name: "Агап",
+  //     mean: "\"Агап\" - это имя греческого происхождения, которое переводится как \"любовь\", \"любящий\".",
+  //     people: "",
+  //     dateName: ""
+  // },
+  // {
+  //     name: "Агата",
+  //     mean: "\"Агата\" - это имя греческого происхождения, которое переводится как \"благородная\", \"добрая\", \"благоприятствующая\".",
+  //     people: "",
+  //     dateName: ""
+  // },
+  // {
+  //     name: "Агафья",
+  //     mean: "\"Агафья\" - это имя греческого происхождения, которое переводится как \"добрый\", \"благой\", \"благоприятствующий\".",
+  //     people: "",
+  //     dateName: ""
+  // },
+  // {
+  //     name: "Адам",
+  //     mean: "\"Адам\" - это имя еврейского происхождения, которое переводится как \"человек\", \"человечество\", \"земля\".",
+  //     people: "Адам из игры деус икс",
+  //     dateName: "1 января"
+  // },
+  // ];
+  console.log('eee',name);
   const moeName = data1.find(item=>item.name === name)
+  
+  
 
   const zagryzimReclamy = ()=>{
     if(context !== false){
@@ -135,6 +141,21 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
   }
 
   const addNameLast = useLastName((state)=>state.addLastName)
+
+  window.addEventListener('online',  updateOnlineStatus);
+	window.addEventListener('offline', updateOnlineStatus);
+	  let condition
+		function updateOnlineStatus(event) {
+		 condition = navigator.onLine ? "online" : "offline";
+		// document.body.className = condition;
+		console.log(condition);
+		if (condition === 'offline'){
+			setContditionValue(true)
+		}
+		if (condition === 'online'){
+			setContditionValue(false)
+		}
+	}
 
   return (
     <div className={styles.containerItem}>
@@ -155,6 +176,7 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
         </div>
 
         <div className={` whBlock ${moeName? context? 'zero1' : '' : ''}`}>
+            {conditionValue && <p className ='red'>Потеряна связь с интернетом</p>}
             {moeName ? '' : <>
             <Link onClick={zagryzimReclamy} className={styles.item}  to={`/${name1}`}>{name1}</Link>
             </>}
@@ -168,9 +190,17 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
                     <Title><Icon20Users3 />Известные люди</Title>
                     <p className={styles.pStyle}>{moeName&& moeName.people}</p>
                 </div>
+                <div className={styles.people}>
+                    <Title><Icon20ViewOutline />Цвета</Title>
+                    <p className={styles.pStyle}>{moeName&& moeName.people}</p>
+                </div>
+                <div className={styles.people}>
+                    <Title><Icon20StarsFilled />Планеты</Title>
+                    <p className={styles.pStyle}>{moeName&& moeName.people}</p>
+                </div>
 
                 <div className='sovmesBlock'>
-                  <Button onClick={sovmesMakeOpen} className={` btnSovmes ${sovmestimostOpen? 'zero2' : ''}`}>
+                  <Button appearance='negative' onClick={sovmesMakeOpen} className={` btnSovmes ${sovmestimostOpen? 'zero2' : ''}`}>
                     <div>Узнать совместимость имени!</div>
                     <div className='posleProsmotra'>после просмотра рекламы</div>
                   </Button>
@@ -184,7 +214,7 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
                 </div>
 
                 <div className={styles.btnParent}>
-                    <Button onClick={wallPost} className={styles.btn}>
+                    <Button  onClick={wallPost} className={styles.btn}>
                         <div className='btnKek'>
                              <Icon20ArrowshapeLeft2Outline/>Опубликовать на стене!
                         </div>

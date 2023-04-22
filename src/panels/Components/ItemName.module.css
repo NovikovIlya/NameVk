@@ -1,3 +1,10 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v8.4.14,
+* Autoprefixer: v10.4.7
+* Browsers: last 4 version
+*/
+
 .item {
   text-decoration: none;
   font-size: 4vw;
@@ -15,9 +22,14 @@
 .containerItem{
   margin-bottom: 20px;
     margin-top: 20px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     width: 100%;
     /* background-color: #2688EB; */
     /* border-radius: 50px; */
@@ -27,20 +39,31 @@
 .btnParent{
     margin-bottom: 20px;
     width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
 }
 
 .btn {
+  
   margin-top: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex ;
-  flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
 
 }
 
 .btnLink {
   color:white ;
   text-decoration: none;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .mean,.people{
@@ -48,38 +71,44 @@
   margin-bottom: 20px;
   max-width: 90%;
   min-width: 90%;
+  text-align: flex-start;
+  padding: 5px;
 }
 
 .mean {
   
   margin-top: 5px;
-  text-align: center;
-  
-  
   border-radius: 10px;
   
 }
 
-.people {
-    
+.people { 
     margin-top: 5px;
-    text-align: center;
 
-    
     border-radius: 10px;
   }
 
 .pStyle {
   margin-top: 5px;
   padding: 10px;
-  text-align: start;
+  text-align: flex-start;
   margin-bottom: 5px;
-  font-size: 4vw;
+  font-size: 15px;
+}
+
+.btn{
+  width: 20%;
 }
 
 @media screen and (max-width: 600px) {
   .item{
       font-size: 9vw;
       padding: 13px;
+  }
+  .pStyle{
+    font-size: 4vw;
+  }
+  .btn{
+    width: 60%;
   }
 }
