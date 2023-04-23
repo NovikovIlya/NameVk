@@ -114,9 +114,9 @@ function Home({fetchedUser}) {
   const handleInputChange = (event) => {
     
     setSearchTerm1(event.target.value);
-    if (searchTerm1.length > 5){
+    if (searchTerm1.length >10){
       setPokaz(true)
-    }else if (searchTerm1.length >= 5){
+    }else if (searchTerm1.length >= 10){
       setPokaz(false)
     }
     // console.log(searchTerm);

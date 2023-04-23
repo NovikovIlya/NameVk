@@ -324,6 +324,10 @@
     margin-bottom: 20px;
 }
 
+.vv4{
+    font-size: 1.1vw;
+}
+
 @media screen and (max-width: 600px) {
     .btnDelete{
         height: 44px;
