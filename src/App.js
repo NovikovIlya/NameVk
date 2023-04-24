@@ -7,6 +7,7 @@ import Top from './panels/Components/Top';
 import Home from './panels/Home';
 import ItemName from './panels/Components/ItemName';
 import { Context } from "./panels/Context.jsx";
+import Num from './panels/Components/Num';
 
 
 const App = () => {
@@ -36,8 +37,8 @@ const App = () => {
 
 	return (
 		
-		// <ConfigProvider appearance={themeUser}>
-		<ConfigProvider appearance='light'> 
+		<ConfigProvider appearance={themeUser}>
+		{/* <ConfigProvider appearance='light'>  */}
 			<AdaptivityProvider>
 				<AppRoot>
 					<SplitLayout >
@@ -48,6 +49,7 @@ const App = () => {
 										<Route path='/' element={<Home fetchedUser={fetchedUser}/>} />
 										<Route path='/:name' element={<ItemName />} />
 										<Route path='/top' element={<Top />} />
+										<Route path='/num' element={<Num fetchedUser={fetchedUser}/>} />
 									</Routes>
 								</HashRouter>	
 							</Context.Provider>

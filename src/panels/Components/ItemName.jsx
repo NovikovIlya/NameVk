@@ -2,12 +2,16 @@ import { Button,Text,Title} from '@vkontakte/vkui'
 import React,{useEffect, useState,createContext,useContext} from 'react'
 import { Link, useParams } from 'react-router-dom'
 import styles from './ItemName.module.css'
-import { Icon20ArticleBoxOutline , Icon20Users3, Icon20ArrowUturnLeftOutline, Icon20ArrowshapeLeft2Outline,Icon20LikeCircleFillRed,Icon20ViewOutline,Icon20StarsFilled} from '@vkontakte/icons';
+import {Icon20Rectangle2HorizontalOutline,Icon20DiamondOutline,Icon20Like, Icon20ArticleBoxOutline , Icon20Users3, Icon20ArrowUturnLeftOutline, Icon20ArrowshapeLeft2Outline,Icon20LikeCircleFillRed,Icon20ViewOutline,Icon20StarsFilled} from '@vkontakte/icons';
 import './../Home.css'
 import { Context } from "./../Context";
 import bridge from '@vkontakte/vk-bridge';
 import {useLastName} from './../../Store'
+import {useOldData} from './../../Store2'
 import {dataZero} from './../../data'
+
+
+
 
 
 
@@ -18,6 +22,9 @@ const ItemName = ({name1,getAnekdots,zagr,poslendi}) => {
   const [fetchedUser, setUser] = useState(null);
   const [sovmestimostOpen,setSovmestimostOpen] = useState(false)
   const [conditionValue,setContditionValue] = useState(false)
+  const [moe,setMoe] = useState('')
+  const [err,setErr] = useState(false)
+  const [zagryzhay,setZagryszhay] = useState(true)
 
   // Проверка готовности рекламы
 bridge.send('VKWebAppCheckNativeAds', { ad_format: 'reward' })
@@ -60,12 +67,12 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
   },[])
 
   useEffect(()=>{
-    setTimeout(menyamZagr1,5000)
+    setTimeout(menyamZagr1,2000)
   },[])
 
   function wallPost(){
     bridge.send('VKWebAppShowWallPostBox', {
-        message: 'Я узнал тайну своего имени! Узнай и ты!' + " "  + moeName.mean,
+        message: 'Я узнал тайну своего имени! Узнай и ты!' + " "  + moe.name_meaning,
         attachment: 'https://vk.com/app51616632_70033480',
         owner_id: fetchedUser.id
       })
@@ -81,47 +88,52 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
  
 
   const menyamZagr1 = ()=>{
-    setZagr1(prev => false)
+    // setZagr1(prev => false)
     setContext(false)
   }
 
   const {name} = useParams()
-  const data1 = dataZero
-  // const data1 = [
-  //   {
-  //     name: "Августин",
-  //     mean: "\"Августин\" - это имя латинского происхождения, которое переводится как \"величественный\", \"возвышенный\", \"почтенный\".",
-  //     people: "",
-  //     dateName: "",
+  // const data1 = dataZero
   
-  // },
-  // {
-  //     name: "Агап",
-  //     mean: "\"Агап\" - это имя греческого происхождения, которое переводится как \"любовь\", \"любящий\".",
-  //     people: "",
-  //     dateName: ""
-  // },
-  // {
-  //     name: "Агата",
-  //     mean: "\"Агата\" - это имя греческого происхождения, которое переводится как \"благородная\", \"добрая\", \"благоприятствующая\".",
-  //     people: "",
-  //     dateName: ""
-  // },
-  // {
-  //     name: "Агафья",
-  //     mean: "\"Агафья\" - это имя греческого происхождения, которое переводится как \"добрый\", \"благой\", \"благоприятствующий\".",
-  //     people: "",
-  //     dateName: ""
-  // },
-  // {
-  //     name: "Адам",
-  //     mean: "\"Адам\" - это имя еврейского происхождения, которое переводится как \"человек\", \"человечество\", \"земля\".",
-  //     people: "Адам из игры деус икс",
-  //     dateName: "1 января"
-  // },
-  // ];
-  // console.log('eee',name);
-  const moeName = data1.find(item=>item.name === name)
+  let moeName
+  useEffect(()=>{
+    let papaData = oldData.find(item => item.name == name)
+    console.log('papa11',papaData);
+    if (papaData){
+      setMoe(papaData)
+      setZagryszhay(false)
+    }else {
+    
+      try {
+        console.log(name);
+        async function sendName(){
+          let response = await fetch(`https://atoma-horoscope.onrender.com/name/${name}`); 
+          let result = await response.json();
+          moeName = result
+          setMoe(moeName)
+          console.log(name1);
+          console.log(moeName);
+          setErr(false)
+          setZagryszhay(false)
+
+
+          addOld(result)
+        }
+        sendName()
+      
+        
+      } catch (error) {
+        console.log(error);
+        setErr(true)
+        setZagryszhay(false)
+        
+      }finally{
+
+      }}
+
+  },[name])
+  
+
   
   
 
@@ -142,6 +154,10 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
 
   const addNameLast = useLastName((state)=>state.addLastName)
 
+  const oldData = useOldData((state)=>state.olderData)
+  console.log('older111',oldData);
+  const addOld = useOldData((state)=>state.addOlderData)
+
   window.addEventListener('online',  updateOnlineStatus);
 	window.addEventListener('offline', updateOnlineStatus);
 	  let condition
@@ -156,18 +172,26 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
 			setContditionValue(false)
 		}
 	}
+  let url = window.location.href
+  let regexp = new RegExp(`${name}`, 'igm')
+  console.log(regexp);
+  console.log(url);
+  console.log(name1);
+  
+  
+  
 
   return (
     <div className={styles.containerItem}>
+    {err? <p>Не удалось получить данные. Попробуйте повторить попытку позднее</p> : ''}
     
-    { moeName && context? <p>Идет загрузка...</p> : ''}
         <div className={`wh ${moeName? context? 'zero1' : '' : ''}`}>
-        {moeName && <>
+        {name && <>
             <div className={styles.btnParent}>
                 <Link className={styles.btnLink} to='/' >
                     <Button   className={styles.btn}>
                         <div className='btnKek'>
-                            <Icon20ArrowUturnLeftOutline/>Назад
+                            <Icon20ArrowUturnLeftOutline/><p className='Ppublic'>Назад</p>
                         </div>
                     </Button>
                 </Link>
@@ -175,28 +199,56 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
         </>}
         </div>
 
+
+        {name&& zagryzhay===true? 
+          <div className='zagMain'>
+				    <div className='zagzag'>
+				    	<h1 className='zagryzka'>Идет загрузка</h1>
+				    	<div className='spin'>
+					    	<div className="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+					    </div>
+				    </div>
+			    </div>
+            
+        : ''}
+
         <div className={` whBlock ${moeName? context? 'zero1' : '' : ''}`}>
             {conditionValue && <p className ='red'>Потеряна связь с интернетом</p>}
-            {moeName ? '' : <>
+            {name ? '' : 
+            err ===false && <>
             <Link onClick={zagryzimReclamy} className={styles.item}  to={`/${name1}`}>{name1}</Link>
             </>}
 
-            {moeName && <>
+            {name&& 
+            zagryzhay === false &&
+             <>
                 <div className={styles.mean}>
                     <Title><Icon20ArticleBoxOutline />Описание</Title>
-                    <p className={styles.pStyle}>{moeName&& moeName.mean}</p>
+                    <p className={styles.pStyle}>{ moe.name_meaning}</p>
                 </div>
                 <div className={styles.people}>
-                    <Title><Icon20Users3 />Известные люди</Title>
-                    <p className={styles.pStyle}>{moeName&& moeName.people}</p>
+                    <Title><Icon20Like />Любовная характеристика</Title>
+                    <p className={styles.pStyle}>{ moe.compability}</p>
+                </div>
+                <div className={styles.people}>
+                    <Title><Icon20Users3 />Корни имени</Title>
+                    <p className={styles.pStyle}>{ moe.name_origins}</p>
                 </div>
                 <div className={styles.people}>
                     <Title><Icon20ViewOutline />Цвета</Title>
-                    <p className={styles.pStyle}>{moeName&& moeName.people}</p>
+                    <p className={styles.pStyle}>{ moe.name_colors}</p>
                 </div>
                 <div className={styles.people}>
-                    <Title><Icon20StarsFilled />Планеты</Title>
-                    <p className={styles.pStyle}>{moeName&& moeName.people}</p>
+                    <Title><Icon20StarsFilled />Числа</Title>
+                    <p className={styles.pStyle}>{ moe.lucky_numbers}</p>
+                </div>
+                <div className={styles.people}>
+                    <Title><Icon20DiamondOutline />Камни</Title>
+                    <p className={styles.pStyle}>{ moe.name_stones}</p>
+                </div>
+                <div className={styles.people}>
+                    <Title><Icon20Rectangle2HorizontalOutline />Металл</Title>
+                    <p className={styles.pStyle}>{ moe.name_metall}</p>
                 </div>
 
                 <div className='sovmesBlock'>
@@ -208,15 +260,15 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
 
                 <div className={` wh2 ${sovmestimostOpen? '' : 'zero2'}`}>
                   <div className={styles.people}>
-                      <Title><Icon20LikeCircleFillRed />Совместимость</Title>
-                      <p className={styles.pStyle}>{moeName&& moeName.compatibility}</p>
+                      <Title><Icon20LikeCircleFillRed />Совместимость имени</Title>
+                      <p className={styles.pStyle}>{ moe.best_lovers}</p>
                   </div>
                 </div>
 
                 <div className={styles.btnParent}>
                     <Button  onClick={wallPost} className={styles.btn}>
                         <div className='btnKek'>
-                             <Icon20ArrowshapeLeft2Outline/>Опубликовать на стене!
+                             <Icon20ArrowshapeLeft2Outline/><p className='Ppublic'>Опубликовать на стене!</p>
                         </div>
                     </Button>
                     

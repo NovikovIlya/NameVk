@@ -1,7 +1,7 @@
 import React,{useState,useEffect,useContext} from 'react';
 import './Home.css'
 import bridge from '@vkontakte/vk-bridge';
-import { Icon20FavoriteCircleFillYellow,Icon20NotificationOutline ,Icon20CrownCircleFillVkDating} from '@vkontakte/icons';
+import {Icon20HelpOutline, Icon20FavoriteCircleFillYellow,Icon20NotificationOutline ,Icon20CrownCircleFillVkDating} from '@vkontakte/icons';
 import {useLastName} from './../Store'
 import { Link, useParams } from 'react-router-dom'
 import { Panel, PanelHeader, Header, Button, Group, Cell, Div, Avatar,Title, Text,Input } from '@vkontakte/vkui';
@@ -34,6 +34,8 @@ function Home({fetchedUser}) {
     .catch((error) => { console.log(error); /* Ошибка */ });
   }
 
+  const [podpiska,setPodpiska] = useState(false)
+  const [izbran,setIzbran] = useState(false)
   const [context, setContext] = useContext(Context);
   const [poslednieImenas,setPoslednieImenas] = useState([])
 	const [reclama,setReclama] = useState(false)
@@ -112,13 +114,19 @@ function Home({fetchedUser}) {
   const [pokaz,setPokaz] = useState(false)
 
   const handleInputChange = (event) => {
-    
-    setSearchTerm1(event.target.value);
-    if (searchTerm1.length >10){
+    const text = event.target.value
+    const textCorrect = text.trim()
+    setSearchTerm1(textCorrect);
+    if (searchTerm1.length >100){
       setPokaz(true)
-    }else if (searchTerm1.length >= 10){
+    }else if (searchTerm1.length <= 1){
       setPokaz(false)
     }
+    if (text === ''){
+      setSearchTerm1('')
+      setSearchTerm('')
+    }
+    
     // console.log(searchTerm);
     // console.log('111',searchResults);
 
@@ -162,16 +170,17 @@ function Home({fetchedUser}) {
   
   function getSearchResults(query) {
     const data = dataZeroName
-  
+    console.log(data);
+    
     return data.filter((item) =>
-      item.name.toLowerCase().includes(query.toLowerCase())
+      item.toLowerCase().includes(query.toLowerCase())
       // Object.keys(item).join().toLowerCase().includes(query.toLowerCase())
     );
   }
 
 
   const NameVk = ()=>{
-    setSearchTerm(fetchedUser.first_name)
+    // setSearchTerm(fetchedUser.first_name)
     setSearchTerm1(fetchedUser.first_name)
   }
 
@@ -180,6 +189,7 @@ function Home({fetchedUser}) {
   .then((data) => { 
     if (data.result) {
       // Мини-приложение или игра добавлены в избранное
+      setIzbran(true)
     }
   })
   .catch((error) => {
@@ -193,6 +203,7 @@ function Home({fetchedUser}) {
   .then((data) => { 
     if (data.result) {
       // Разрешение на отправку уведомлений мини-приложением или игрой получено
+      setPodpiska(true)
     } else {
       // Ошибка
     }
@@ -222,20 +233,25 @@ function Home({fetchedUser}) {
 		}
 		
 	}
-
+ 
   return (
     <>
      
       <div className='container'>
         <Title className='TitleStyle TAKs' weight="1" level="1" style={{ marginBottom: 16 }}>Узнай значение своего имени!</Title>
         
-        {zagr? <p>Идет загрузка...</p> : ''}
+        {zagr? 
+          <div className='zagzag'>
+              <p>Идет загрузка...</p> 
+              <div className="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+            </div>
+        : ''}
 
         <div className='miniContainer'>
           <div className='InputParent'>
           
-          <Input type="text" value={searchTerm1} onChange={handleInputChange} className='inputStyle' placeholder='Введите имя'/>
-          <Button className='btnPoisk' onClick={handle}>Найти</Button>
+          <Input type="text" value={searchTerm1} onChange={handleInputChange} className='inputStyle btnPoisk1' placeholder='Введите имя'/>
+          <Button className='btnPoisk btnPoisk2 ' onClick={handle}>Найти</Button>
           
            {searchTerm1&& <Button onClick={()=>{
             setPokaz(false)
@@ -254,6 +270,15 @@ function Home({fetchedUser}) {
            
               <div className='izbrannoe'>
                <div className='izbrannoeBtn'>
+                <Link className='vv' to='num'>
+                    <Button appearance='negative' className='btn2 vv2'  >
+                        <div className='btnKek vv3'>
+                             <Icon20HelpOutline/><p className='vv3 vv4'>Узнай нумерологию своего ФИО!</p>
+                        </div>
+                    </Button>
+                  </Link>
+                </div>
+                <div className='izbrannoeBtn'>
                 <Link className='vv' to='top'>
                     <Button appearance='negative' className='btn2 vv2'  >
                         <div className='btnKek vv3'>
@@ -262,14 +287,14 @@ function Home({fetchedUser}) {
                     </Button>
                   </Link>
                 </div>
-                <div className='izbrannoeBtn'>
+                <div className={`izbrannoeBtn ${izbran? 'zero2' : ''}`}>
                     <Button className='btn2' onClick={izbranoe} >
                         <div className='btnKek '>
                             <Icon20FavoriteCircleFillYellow/><p className='vv4'>Добавьте приложение в избранное! </p> 
                         </div>
                     </Button>
                 </div>
-                <div className='izbrannoeBtn'>
+                <div className={`izbrannoeBtn ${podpiska? 'zero2' : ''}`}>
                     <Button className='btn2' onClick={podiskaUvedomlenie}  >
                         <div className='btnKek '>
                              <Icon20NotificationOutline/><p className='vv4'>Подпишитесь на рассылку!</p>
@@ -285,7 +310,8 @@ function Home({fetchedUser}) {
                    <div className='LastNameDiv'>
                       
                       <Link className='LastNameLink' to={`/${LastName}`}>
-                      <div onClick={zagryzimReclamy1}>{LastName}</div>
+                      {/* <div onClick={zagryzimReclamy1}>{LastName}</div> */}
+                      <div>{LastName}</div>
                       </Link>
                     </div>
                   ))}
@@ -303,7 +329,7 @@ function Home({fetchedUser}) {
          <ul className='ulStyle'>
             {searchResults.map((result) => (
               <li key={result.id} className='liStyle'>
-                <ItemName name1={result.name} getAnekdots={getAnekdots} zagr={zagr} poslendi={poslendi}  />
+                <ItemName name1={result} getAnekdots={getAnekdots} zagr={zagr} poslendi={poslendi}  />
              
               </li>
                ))}

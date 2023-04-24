@@ -1,0 +1,207 @@
+import React,{useState,useEffect,useContext} from 'react';
+import './../Home.css'
+import bridge from '@vkontakte/vk-bridge';
+import {Icon20HelpOutline,Icon20ArrowUturnLeftOutline, Icon20FavoriteCircleFillYellow,Icon20NotificationOutline ,Icon20CrownCircleFillVkDating} from '@vkontakte/icons';
+import styles from './ItemName.module.css'
+import { Link, useParams } from 'react-router-dom'
+import { Panel, PanelHeader, Header, Button, Group, Cell, Div, Avatar,Title, Text,Input } from '@vkontakte/vkui';
+import { Context } from "./../Context";
+
+
+
+
+
+function Num({fetchedUser}) {
+  const [nameUser,setNameUser] = useState('')
+  const [familyUser,setFamilyUser] = useState('')
+  const [surNameUser,setsurNameUser] = useState('')
+  const [searchTerm1 ,setSearchTerm1] = useState('')
+  const [dataNumer,setDataNumer] = useState('')
+  const [errorZero,setErrorZero] = useState(false)
+  const [resp,setResp] = useState('')
+
+  bridge.send('VKWebAppCheckNativeAds', { ad_format: 'interstitial' })
+  .then((data) => {
+    if (data.result) {
+    } else {
+      console.log('Рекламные материалы не найдены.');
+    }
+  })
+  .catch((error) => { console.log(error); /* Ошибка */  });
+
+  function fooButtonClick(){
+  // Показать рекламу
+  bridge.send('VKWebAppShowNativeAds', { ad_format: 'interstitial' })
+    .then((data) => {
+      if (data.result) // Успех
+        console.log('Реклама показана');
+      else // Ошибка 
+        console.log('Ошибка при показе');
+    })
+    .catch((error) => { console.log(error); /* Ошибка */ });
+  }
+
+  bridge.send('VKWebAppCheckNativeAds', { ad_format: 'reward' })
+.then((data) => {
+  if (data.result) {
+  } else {
+    console.log('Рекламные материалы не найдены.');
+  }
+})
+.catch((error) => { console.log(error); /* Ошибка */  });
+
+// Обработчик нажатия кнопки "Посмотрите рекламу"
+function fooButtonClickReward()
+{
+// Показать рекламу
+bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
+  .then((data) => {
+    if (data.result) // Успех
+      console.log('Реклама показана');
+    else // Ошибка 
+      console.log('Ошибка при показе');
+  })
+  .catch((error) => { console.log(error); /* Ошибка */ });
+}
+
+
+
+
+  
+
+  
+
+
+
+  function handleName(event){
+    const text = event.target.value
+    console.log(text);
+    setNameUser(text)
+    
+  }
+
+  function handleFamily(event){
+    const text = event.target.value
+    console.log(text);
+    setFamilyUser(text)
+  }
+
+  function handleSurName(event){
+    const text = event.target.value
+    console.log(text);
+    setsurNameUser(text)
+  }
+
+
+
+  function handleSubmit(e) {
+    
+    e.preventDefault();
+    async function haha(){
+        try {
+            let response = await fetch(`https://atoma-horoscope.onrender.com/name_numerology/?name=${nameUser}&familyname=${familyUser}&fathername=${surNameUser}`); // завершается с заголовками ответа
+            let result = await response.json(); 
+            console.log(result);
+            setDataNumer(result)
+            setErrorZero(false)
+            console.log(dataNumer);
+            setResp(result)
+            console.log('sszzz',result);
+            
+            
+        } catch (error) {
+            setErrorZero(true)
+            console.log('Ошибка',error);
+            
+        }
+
+        
+    }
+    haha()
+  }
+
+  function clickVk(){
+    console.log(fetchedUser);
+    
+    setNameUser(fetchedUser.first_name)
+    setFamilyUser(fetchedUser.last_name)
+  }
+
+
+
+  
+
+  window.addEventListener('online',  updateOnlineStatus);
+	  window.addEventListener('offline', updateOnlineStatus);
+	  let condition
+		function updateOnlineStatus(event) {
+		 condition = navigator.onLine ? "online" : "offline";
+		// document.body.className = condition;
+		console.log(condition);
+		if (condition === 'offline'){
+			setContditionValue(true)
+		}
+		if (condition === 'online'){
+			setContditionValue(false)
+		}
+		
+	}
+ 
+  return (
+    <>
+        <div className={styles.btnParent}>
+            <Link className={styles.btnLink} to='/' >
+                <Button   className={styles.btn}>
+                    <div className='btnKek'>
+                        <Icon20ArrowUturnLeftOutline/>Назад
+                    </div>
+                </Button>
+            </Link>
+        </div>
+     
+      <div className='container'>
+        <Title className='TitleStyle TAKs' weight="1" level="1" style={{ marginBottom: 16 }}>Узнай нумерологию своего ФИО!</Title>
+       
+        <form method="post" onSubmit={handleSubmit} className='formStyle'>
+            
+            <Input value={nameUser}   placeholder='Введите имя' onChange={handleName}/>
+        
+            <Input value={familyUser} placeholder='Введите Фамилию' onChange={handleFamily}/>
+            <Input   placeholder='Введите Отчество' onChange={handleSurName}/>
+            <div className='btnBox'>
+                <Button appearance='negative' className='' onClick={()=>{
+                    clickVk()
+                    fooButtonClickReward()
+                    }}>
+                    <div>Взять данные ФИ из  ВК</div>
+                    <div className='posleProsmotra'>После просмотра рекламы</div>
+                </Button>
+                <Button type="submit">Узнать</Button>
+               
+                {errorZero&& <p>Не удалось получить данные. Попробуйте повторить попытку позднее</p>}
+            </div>
+
+            
+        </form>
+        {resp.detail == 'Not found'?
+           <div className='pNeaidenParent'>   
+            <p className='pNeaiden'>Данные не найдены</p>
+         </div> 
+         : ''}
+        
+        {resp.detail !== 'Not found'&& dataNumer&& <>
+            <div className='whDataNumber'>
+                <div className='whData'>{dataNumer.name_number}</div>
+                <div className='whText'>{dataNumer.explanation}</div>
+            </div>
+            </>
+        }
+      </div>
+    </>
+  );
+}
+
+
+
+
+export default Num;

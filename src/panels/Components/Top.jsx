@@ -51,8 +51,8 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
             </Link>
         </div>
         <div className='whBlock'>
-            <Button appearance={`${otobrazhaemFemale? 'negative' : ''}`} onClick={()=>setOtobrazhaemFemale(true)}>Женские</Button>
-            <Button appearance={`${otobrazhaemFemale===false? 'negative' : ''}`} onClick={()=>setOtobrazhaemFemale(false)}>Мужские</Button>
+            <Button appearance={`${otobrazhaemFemale? 'negative' : ''}`} onClick={()=>setOtobrazhaemFemale(true)} className='top1'>Женские</Button>
+            <Button appearance={`${otobrazhaemFemale===false? 'negative' : ''}`} onClick={()=>setOtobrazhaemFemale(false)} className='top2'>Мужские</Button>
         </div>
         <div className={` whBlock ${otobrazhaemFemale? '' : 'zero2'}`}>
             <div className={styles.mean}>
