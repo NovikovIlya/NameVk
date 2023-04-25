@@ -37,6 +37,18 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
   })
   .catch((error) => { console.log(error); /* Ошибка */ });
 }
+bridge.send('VKWebAppShowBannerAd', {
+    banner_location: 'bottom'
+    })
+   .then((data) => { 
+      if (data.result) {
+        // Баннерная реклама отобразилась
+      }
+    })
+    .catch((error) => {
+      // Ошибка
+      console.log(error);
+    });
 
   return (
     <>
@@ -84,8 +96,21 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
                 <p className={styles.pStyle}>4 место - Алиса.</p>
                 <p className={styles.pStyle}>Если брать древнегерманский вариант, то Алиса – «благородная», «великодушная». А если греческий – то «истина». Есть версия, что это имя – сокращение от «Аделаида».</p>
             </div>
+            
+            <div className={styles.mean}>
+                        <p className={styles.pStyle}>3 место - Анна</p>
+                        <p className={styles.pStyle}>Имя Анна с иврита переводится как «храбрость», «сила», «благодать». В христианстве Анна – мать Богородицы, бабушка Иисуса Христа (богопраматерь), жена святого Иоакима, родившая дочь чудесным образом после долгих лет бездетного брака. Поэтому имя Анна также переводят как «милость божья».</p>
+                    </div>
+                    <div className={styles.mean}>
+                        <p className={styles.pStyle}>2 место - Мария</p>
+                        <p className={styles.pStyle}>Мария – женское древнееврейское имя. Произошло оно от имени Мариам (Марьям), что в переводе обозначает «горькая», «печальная», «отвергающая», «госпожа», «любимая». Более того, оно считается библейским именем, так звали Богородицу.</p>
+                    </div>
+                    <div className={styles.mean}>
+                        <p className={styles.pStyle}>1 место - София (Софья)</p>
+                        <p className={styles.pStyle}>Это относительно молодой лидер топ-10 самых популярных женских имен. Оно возглавило список лишь в 2016 году, зато с тех пор остается на первом месте. Имя София – греческих корней, и в переводе означает «премудрость».</p>
+                    </div>
 
-            <Button onClick={PokazReckamy} appearance='negative' className={` whBlock1 ${reclama? 'zero2' : ''}`} >
+            {/* <Button onClick={PokazReckamy} appearance='negative' className={` whBlock1 ${reclama? 'zero2' : ''}`} >
                     <div>Узнать топ 3 имени!</div>
                     <div className='posleProsmotra'>после просмотра рекламы</div>
                 </Button>
@@ -105,7 +130,7 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
                     </div>
                 
             
-            </div>
+            </div> */}
         </div>
 
 
@@ -140,9 +165,20 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
                 <p className={styles.pStyle}>4 место - Лев.</p>
                 <p className={styles.pStyle}>Еще в 2019 году имя Лев было на девятой позиции, а в 2022 занимает четвертое место по популярности. Это имя греки давали новорожденным, чтобы те обрели силу одноименного животного. Долгое время имя Лев в России было нераспространенным, лишь в начале 20-го века его стали часто давать детям в честь Льва Толстого.</p>
             </div>
+            <div className={styles.mean}>
+                        <p className={styles.pStyle}>3 место - Максим</p>
+                        <p className={styles.pStyle}>Римское родовое имя, означавшее «величайший». И если это мужское имя вошло в число самых распространенных в России, то вот женская версия – Максима – почти не встречается в нашей стране.</p>
+                    </div>
+                    <div className={styles.mean}>
+                        <p className={styles.pStyle}>2 место - Михаил</p>
+                        <p className={styles.pStyle}>Имя Михаил в переводе с древнеиудейского языка означает «равный, подобный Богу», также существует вариант перевода – «испрошенный у Бога». Имя Михаил широко распространено в Европе: Майкл, Мишель, Мигель, Михай – это всё аналоги имени Михаил. Существует ещё одно производное мужское имя, чаще встречаемое в Австралии. Это имя Митчелл. От мужского имени Михаил были образованы женские имена: Михаила, Мишел, Мишель, Михаэла, Мигела, Микаэла, Мигелина, Микеланджела, Микела, Михайлина, Михалина, Михала.</p>
+                    </div>
+                    <div className={styles.mean}>
+                        <p className={styles.pStyle}>1 место - Александр.</p>
+                        <p className={styles.pStyle}>Безоговорочный лидер уже многие годы, лишь в 2012 году уступил первенство Артему. Происхождение этого имени – греческое.</p>
+                    </div>
 
-
-            <Button onClick={PokazReckamy} appearance='negative' className={` whBlock1 ${reclama? 'zero2' : ''}`} >
+            {/* <Button onClick={PokazReckamy} appearance='negative' className={` whBlock1 ${reclama? 'zero2' : ''}`} >
                     <div>Узнать топ 3 имени!</div>
                     <div className='posleProsmotra'>после просмотра рекламы</div>
                 </Button>
@@ -162,7 +198,7 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
                     </div>
                 
             
-            </div>
+            </div> */}
         </div>
     </div>
     </>

@@ -160,23 +160,41 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
         </div>
      
       <div className='container'>
-        <Title className='TitleStyle TAKs' weight="1" level="1" style={{ marginBottom: 16 }}>Узнай нумерологию своего ФИО!</Title>
+        <Title className='TitleStyle TAKs' weight="1" level="1" style={{ marginBottom: 16 }}>Узнай нумерологию своего имени!</Title>
        
         <form method="post" onSubmit={handleSubmit} className='formStyle'>
+          <div className='papaBox'>
+            <Input className='inputNum' value={familyUser} placeholder='Введите свою Фамилию' onChange={handleFamily}/>
+            {familyUser&& <Button onClick={()=>{
+            setFamilyUser('')
+            }} className='btnDelete1' mode='outline' appearance='neutral'>X</Button>}
+          </div>
             
-            <Input value={nameUser}   placeholder='Введите имя' onChange={handleName}/>
-        
-            <Input value={familyUser} placeholder='Введите Фамилию' onChange={handleFamily}/>
-            <Input   placeholder='Введите Отчество' onChange={handleSurName}/>
+          <div className='papaBox'>
+            <Input className='inputNum' value={nameUser}   placeholder='Введите своё Имя' onChange={handleName}/>
+            {nameUser&& <Button onClick={()=>{
+            setNameUser('')
+            }} className='btnDelete1' mode='outline' appearance='neutral'>X</Button>}
+          </div>
+
+          <div className='papaBox'>
+            <Input className='inputNum' value={surNameUser}  placeholder='Введите своё Отчество' onChange={handleSurName}/>
+            {surNameUser&& <Button onClick={()=>{
+            setsurNameUser('')
+            }} className='btnDelete1' mode='outline' appearance='neutral'>X</Button>}
+          </div>
+            
+  
+            
             <div className='btnBox'>
                 <Button appearance='negative' className='' onClick={()=>{
                     clickVk()
                     fooButtonClickReward()
                     }}>
-                    <div>Взять данные ФИ из  ВК</div>
+                    <div>Получить данные из ВК</div>
                     <div className='posleProsmotra'>После просмотра рекламы</div>
                 </Button>
-                <Button type="submit">Узнать</Button>
+                <Button className='submitStyle' type="submit">Узнать</Button>
                
                 {errorZero&& <p>Не удалось получить данные. Попробуйте повторить попытку позднее</p>}
             </div>
@@ -185,7 +203,7 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
         </form>
         {resp.detail == 'Not found'?
            <div className='pNeaidenParent'>   
-            <p className='pNeaiden'>Данные не найдены</p>
+            <p className='pNeaiden'>Данные не найдены. Проверьте правильность написания имени</p>
          </div> 
          : ''}
         

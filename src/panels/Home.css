@@ -123,7 +123,7 @@
 }
 
 .posleProsmotra{
-    font-size: 10px;
+    font-size: 9px;
 }
 
 .vkuiTitle{
@@ -177,6 +177,27 @@
 }
 
 .btnDelete:hover{
+    background-color:transparent !important ;
+}
+.btnDelete1{
+    
+    position: absolute;
+    -webkit-box-shadow: none !important;
+            box-shadow: none !important;
+    /* margin-left: 155.5px; */
+    margin-left: 640px;
+    min-width: 35px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    height: 35.99px;
+    opacity: 0.5 ;
+}
+
+.btnDelete1:hover{
     background-color:transparent !important ;
 }
 
@@ -346,12 +367,17 @@
     font-size: 1.1vw;
 }
 
+
 @media screen and (max-width: 600px) {
+    .btnDelete1{
+        height: 44px;
+        margin-left: 140px;
+    }
     .btnDelete{
         height: 44px;
     }
     .posleProsmotra{
-        font-size: 2.5vw;
+        font-size: 2.3vw;
     }
     .btn2{
         width: 80% ;
@@ -367,15 +393,34 @@
         flex-wrap: wrap;
         justify-content: center !important;
     }
+    .whText{
+        font-size: 5vw !important;
+    }
+    .whData{
+        font-size: 17vw !important;
+    }
+    .submitStyle{
+        margin-top: 17px;
+    }
 }
 
+
+
+
 .whDataNumber{
+    margin-top: 20px;
     display:flex;
     justify-content: center;
-    width: 50%;
+    width: 90%;
     flex-wrap: wrap ;
     border:1px solid rgb(212, 212, 212);
     padding: 10px;
+
+background-color: #8EC5FC;
+background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
+/* background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%); */
+    border-radius: 20px;
+
 }
 
 .clickVk{
@@ -394,13 +439,23 @@
 .whData{
     text-align: center;
     width: 100%;
+    font-size: 7vw;
+    color:white !important;
+    
+    
+}
+.zagMain{
+    background-color:rgba(0, 0, 0, 0.041);
+    border-radius: 50px;
 }
 
 .whText{
     width: 100%;
-    font-size: 4vw;
+    font-size: 1.5vw;
+    color:white !important;
 }
 .pNeaidenParent{
+    padding: 10px;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -412,8 +467,14 @@
 }
 
 
-
-
+.inputNum{
+    margin-bottom: 20px;
+    width: 100%;
+}
+.papaBox{
+    display: flex;
+    justify-content: center;
+}
 
 
 

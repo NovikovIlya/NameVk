@@ -177,6 +177,15 @@ function Home({fetchedUser}) {
       // Object.keys(item).join().toLowerCase().includes(query.toLowerCase())
     );
   }
+  useEffect(()=>{
+    if (window.localStorage.getItem('izbran') === '1'){
+      setIzbran(true)
+    }
+    if (window.localStorage.getItem('podpiska') === '1'){
+      setPodpiska(true)
+    }
+  
+  },[])
 
 
   const NameVk = ()=>{
@@ -190,6 +199,7 @@ function Home({fetchedUser}) {
     if (data.result) {
       // Мини-приложение или игра добавлены в избранное
       setIzbran(true)
+      window.localStorage.setItem('izbran', '1')
     }
   })
   .catch((error) => {
@@ -197,6 +207,8 @@ function Home({fetchedUser}) {
     console.log(error);
   });
   }
+ 
+  
 
   function podiskaUvedomlenie(){
     bridge.send('VKWebAppAllowNotifications')
@@ -204,6 +216,7 @@ function Home({fetchedUser}) {
     if (data.result) {
       // Разрешение на отправку уведомлений мини-приложением или игрой получено
       setPodpiska(true)
+      window.localStorage.setItem('podpiska', '1')
     } else {
       // Ошибка
     }
@@ -213,6 +226,7 @@ function Home({fetchedUser}) {
     console.log(error);
   });
   }
+  
 
 
 
@@ -233,6 +247,17 @@ function Home({fetchedUser}) {
 		}
 		
 	}
+
+  bridge.send('VKWebAppHideBannerAd')
+  .then((data) => { 
+    if (data.result) {
+      // Баннерная реклама скрыта
+    }
+  })
+  .catch((error) => {
+    // Ошибка
+    console.log(error);
+  });
  
   return (
     <>
@@ -273,7 +298,7 @@ function Home({fetchedUser}) {
                 <Link className='vv' to='num'>
                     <Button appearance='negative' className='btn2 vv2'  >
                         <div className='btnKek vv3'>
-                             <Icon20HelpOutline/><p className='vv3 vv4'>Узнай нумерологию своего ФИО!</p>
+                             <Icon20HelpOutline/><p className='vv3 vv4'>Узнай нумерологию своего имени!</p>
                         </div>
                     </Button>
                   </Link>

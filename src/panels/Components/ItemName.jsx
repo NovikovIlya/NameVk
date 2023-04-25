@@ -198,7 +198,7 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
             </div>
         </>}
         </div>
-
+  
 
         {name&& zagryzhay===true? 
           <div className='zagMain'>
