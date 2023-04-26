@@ -172,21 +172,21 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
 
         <form method="post" onSubmit={handleSubmit} className='formStyle'>
           <div className='papaBox'>
-            <Input className='inputNum' value={familyUser} placeholder='Введите свою Фамилию' onChange={handleFamily}/>
+            <Input className='inputNum' value={familyUser} placeholder='Введите Фамилию' onChange={handleFamily}/>
             {/* {familyUser&& <Button onClick={()=>{
             setFamilyUser('')
             }} className='btnDelete1' mode='outline' appearance='neutral'>X</Button>} */}
           </div>
             
           <div className='papaBox'>
-            <Input className='inputNum' value={nameUser}   placeholder='Введите своё Имя' onChange={handleName}/>
+            <Input className='inputNum' value={nameUser}   placeholder='Введите Имя' onChange={handleName}/>
             {/* {nameUser&& <Button onClick={()=>{
             setNameUser('')
             }} className='btnDelete1' mode='outline' appearance='neutral'>X</Button>} */}
           </div>
 
           <div className='papaBox'>
-            <Input className='inputNum' value={surNameUser}  placeholder='Введите своё Отчество' onChange={handleSurName}/>
+            <Input className='inputNum' value={surNameUser}  placeholder='Введите Отчество' onChange={handleSurName}/>
             {/* {surNameUser&& <Button onClick={()=>{
             setsurNameUser('')
             }} className='btnDelete1' mode='outline' appearance='neutral'>X</Button>} */}
@@ -195,14 +195,17 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
   
             
             <div className='btnBox'>
-                <Button appearance='negative' className='' onClick={()=>{
+                <Button className='submitStyle0' appearance='negative'   onClick={()=>{
                     clickVk()
-                    fooButtonClickReward()
+                    
                     }}>
                     <div>Получить данные из ВК</div>
-                    <div className='posleProsmotra'>После просмотра рекламы</div>
+                    {/* <div className='posleProsmotra'>После просмотра рекламы</div> */}
                 </Button>
-                <Button className='submitStyle' type="submit">Узнать</Button>
+                <Button className='submitStyle' type="submit" onClick={fooButtonClickReward}>
+                  {/* <div>Узнать за просмотр рекламы!</div> */}
+                  <div className='posleProsmotra'>Узнать! После просмотра рекламы</div>
+                </Button>
                
                 {errorZero&& <p>Не удалось получить данные. Попробуйте повторить попытку позднее</p>}
             </div>

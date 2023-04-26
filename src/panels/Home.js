@@ -263,8 +263,12 @@ function Home({fetchedUser}) {
     <>
      
       <div className='container'>
-        <Title className='TitleStyle TAKs' weight="1" level="1" style={{ marginBottom: 16 }}>Узнай значение своего имени!</Title>
+        {/* <Title className='TitleStyle TAKs' weight="1" level="1" style={{ marginBottom: 16 }}>Узнай значение своего имени!</Title> */}
         
+        <div className="col-md-12 text-center">
+                <h3 className="animate-charcter"> Узнай значение своего имени!</h3>
+        </div>
+
         {zagr? 
           <div className='zagzag'>
               <p>Идет загрузка...</p> 
@@ -303,33 +307,44 @@ function Home({fetchedUser}) {
               <div className='izbrannoe'>
                <div className='izbrannoeBtn'>
                 <Link className='vv' to='num'>
-                    <Button appearance='negative' className='btn2 vv2'  >
-                        <div className='btnKek vv3'>
-                             <Icon20HelpOutline/><p className='vv3 vv4'>Узнай нумерологию своего имени!</p>
+                    <Button  className='btn2 vv2 vv5'  >
+                        <div className='btnKek vv3 hh'>
+                            <div className='papaImg'>
+                             <img className='img1' src='https://i.ibb.co/THpPyDj/1.png'/>
+                            </div>
+                             
+                             <p className='vv3 vv4'>Узнай нумерологию<br></br> своего имени!</p>
                         </div>
                     </Button>
                   </Link>
                 </div>
                 <div className='izbrannoeBtn'>
                 <Link className='vv' to='top'>
-                    <Button appearance='negative' className='btn2 vv2'  >
-                        <div className='btnKek vv3'>
-                             <Icon20CrownCircleFillVkDating/><p className='vv3 vv4'>Топ 10 популярных имен в 2022!</p>
+                  
+                    <Button  className='btn2 vv2 vv5'  >
+                      
+                        <div className='btnKek vv3 hh'>
+                            <div className='papaImg'>
+                              <img className='img1' src='https://i.ibb.co/V9cpmBn/2.png'/>
+                            </div>
+                             
+                             <p className='vv3 vv4'>Топ 10 популярных <br></br>имен в 2022!</p>
                         </div>
+                        
                     </Button>
                   </Link>
                 </div>
                 <div className={`izbrannoeBtn ${izbran? 'zero2' : ''}`}>
-                    <Button className='btn2' onClick={izbranoe} >
+                    <Button  className='btn2 fac' onClick={izbranoe} >
                         <div className='btnKek '>
                             <Icon20FavoriteCircleFillYellow/><p className='vv4'>Добавьте приложение в избранное! </p> 
                         </div>
                     </Button>
                 </div>
                 <div className={`izbrannoeBtn ${podpiska? 'zero2' : ''}`}>
-                    <Button className='btn2' onClick={podiskaUvedomlenie}  >
+                    <Button className='btn2 fac' onClick={podiskaUvedomlenie}  >
                         <div className='btnKek '>
-                             <Icon20NotificationOutline/><p className='vv4'>Подпишитесь на рассылку!</p>
+                             <Icon20NotificationOutline/><p className='vv4'>Подпишитесь на уведомления!</p>
                         </div>
                     </Button>
                 </div>

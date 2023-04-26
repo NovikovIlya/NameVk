@@ -252,10 +252,12 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
                 </div>
 
                 <div className='sovmesBlock'>
+                
                   <Button appearance='negative' onClick={sovmesMakeOpen} className={` btnSovmes ${sovmestimostOpen? 'zero2' : ''}`}>
-                    <div>Узнать совместимость имени!</div>
-                    <div className='posleProsmotra'>после просмотра рекламы</div>
+                    {/* <div>Узнать совместимость имени!</div> */}
+                    <div className='posleProsmotra rrr'>Узнать совместимость имени! После просмотра рекламы</div>
                   </Button>
+                  
                 </div>
 
                 <div className={` wh2 ${sovmestimostOpen? '' : 'zero2'}`}>
@@ -266,11 +268,16 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
                 </div>
 
                 <div className={styles.btnParent}>
+                  <div className={styles.btnLink}>
                     <Button  onClick={wallPost} className={styles.btn}>
+                      
                         <div className='btnKek'>
-                             <Icon20ArrowshapeLeft2Outline/><p className='Ppublic'>Опубликовать на стене!</p>
-                        </div>
+                              <Icon20ArrowshapeLeft2Outline/><p className='Ppublic'>Опубликовать на стене!</p>
+                          </div>
+                      
+                        
                     </Button>
+                    </div>
                     
                 </div>
                
