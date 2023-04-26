@@ -275,9 +275,10 @@ function Home({fetchedUser}) {
         <div className='miniContainer'>
           <div className='InputParent'>
           
-          <Input type="text" value={searchTerm1} onChange={handleInputChange} className='inputStyle btnPoisk1' placeholder='Введите имя'/>
-          <Button className='btnPoisk btnPoisk2 ' onClick={handle}>Найти</Button>
-          
+          <Input pattern='[А-Яа-яЁё]' type="text" value={searchTerm1} onChange={handleInputChange} className='inputStyle btnPoisk1' placeholder='Введите имя '/>
+         
+          <Button className='btnPoisk btnPoisk2 ' onClick={handle}><div className='naiti'>Найти</div></Button>
+         
            {searchTerm1&& <Button onClick={()=>{
             setPokaz(false)
             setSearchTerm1('')
@@ -289,8 +290,14 @@ function Home({fetchedUser}) {
 
             }} className='btnDelete' mode='outline' appearance='neutral'>VK</Button>}
 
-            
+          
           </div>
+
+          {/* {pokaz === false ?  
+          <div className='shParent'>
+            <p className='sh'>Ввод имени только на кириллице</p>
+          </div> : ""} */}
+          
             { pokaz === false? 
            
               <div className='izbrannoe'>
@@ -347,7 +354,7 @@ function Home({fetchedUser}) {
             }
          {searchTerm && 
          <div className='netImeniStyle'>
-          {searchResults.length > 0 ? '' : 'Искомое имя не найдено'}
+          {searchResults.length > 0 ? '' : <p className='isomoeImya'>Искомое имя не найдено. Проверьте правильность введеного имени. Ввод имени только на кириллице</p>}
          </div>}
 
          {searchTerm === '' ? '' : <>

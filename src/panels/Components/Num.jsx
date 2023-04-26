@@ -161,27 +161,35 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
      
       <div className='container'>
         <Title className='TitleStyle TAKs' weight="1" level="1" style={{ marginBottom: 16 }}>Узнай нумерологию своего имени!</Title>
-       
+
+        <div className='baba'>
+          {<Button onClick={()=>{
+              setFamilyUser('')
+              setNameUser('')
+              setsurNameUser('')
+              }} className={`btnDelete2 ${familyUser?'':'zero3'}`} mode='outline' appearance='neutral'>Очистить форму</Button>}
+        </div>
+
         <form method="post" onSubmit={handleSubmit} className='formStyle'>
           <div className='papaBox'>
             <Input className='inputNum' value={familyUser} placeholder='Введите свою Фамилию' onChange={handleFamily}/>
-            {familyUser&& <Button onClick={()=>{
+            {/* {familyUser&& <Button onClick={()=>{
             setFamilyUser('')
-            }} className='btnDelete1' mode='outline' appearance='neutral'>X</Button>}
+            }} className='btnDelete1' mode='outline' appearance='neutral'>X</Button>} */}
           </div>
             
           <div className='papaBox'>
             <Input className='inputNum' value={nameUser}   placeholder='Введите своё Имя' onChange={handleName}/>
-            {nameUser&& <Button onClick={()=>{
+            {/* {nameUser&& <Button onClick={()=>{
             setNameUser('')
-            }} className='btnDelete1' mode='outline' appearance='neutral'>X</Button>}
+            }} className='btnDelete1' mode='outline' appearance='neutral'>X</Button>} */}
           </div>
 
           <div className='papaBox'>
             <Input className='inputNum' value={surNameUser}  placeholder='Введите своё Отчество' onChange={handleSurName}/>
-            {surNameUser&& <Button onClick={()=>{
+            {/* {surNameUser&& <Button onClick={()=>{
             setsurNameUser('')
-            }} className='btnDelete1' mode='outline' appearance='neutral'>X</Button>}
+            }} className='btnDelete1' mode='outline' appearance='neutral'>X</Button>} */}
           </div>
             
   
@@ -203,7 +211,7 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
         </form>
         {resp.detail == 'Not found'?
            <div className='pNeaidenParent'>   
-            <p className='pNeaiden'>Данные не найдены. Проверьте правильность написания имени</p>
+            <p className='pNeaiden'>Данные не найдены. Проверьте правильность написания имени. Ввод только на кириллице.</p>
          </div> 
          : ''}
         

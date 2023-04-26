@@ -159,7 +159,14 @@
     width: 100%;
     
 }
+.naiti{
+    /* margin-top: 3px; */
+}
+.btnDeleteFix{
+
+}
 .btnDelete{
+    
     position: absolute;
     -webkit-box-shadow: none !important;
             box-shadow: none !important;
@@ -181,11 +188,11 @@
 }
 .btnDelete1{
     
-    position: absolute;
+    position:absolute;
     -webkit-box-shadow: none !important;
             box-shadow: none !important;
     /* margin-left: 155.5px; */
-    margin-left: 640px;
+    margin-left: 940px;
     min-width: 35px;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -200,9 +207,41 @@
 .btnDelete1:hover{
     background-color:transparent !important ;
 }
+.zero3{
+    opacity: 0 !important;
+    pointer-events: none;
+}
+.baba{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.btnDelete2{
+    border: 1px solid rgb(212, 212, 212);
+    width: 30%;
+    -webkit-box-shadow: none !important;
+            box-shadow: none !important;
+    /* margin-left: 155.5px; */
+    
+    
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    height: 35.99px;
+    opacity: 0.5 ;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.btnDelete2:hover{
+    background-color:transparent !important ;
+}
 
 .izbrannoe{
-    margin-top: 40px;
+    /* margin-top: 40px; */
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -281,7 +320,7 @@
     color:antiquewhite
 }
 .vv{
-    width: 100%;
+    /* width: 100%; */
     display: flex;
     justify-content: center;
     text-decoration: none;
@@ -339,14 +378,19 @@
 }
 
 .btn2{
-    width: 30% ;
+    /* width: 30% ; */
+    width: 350px;
 }
 .whBlock1{
     margin-bottom: 20px;
 }
+.isomoeImya{
+    text-align: center;
+}
 
 .vv4{
-    font-size: 1.1vw;
+    /* font-size: 0.8vw; */
+    
 }
 .btnPoisk1{
     border-radius: 20px 0px 0px 20px;
@@ -369,6 +413,12 @@
 
 
 @media screen and (max-width: 600px) {
+    .btnDelete2{
+        width: 50%;
+    }
+    .sh{
+        font-size: 3vw !important;
+    }
     .btnDelete1{
         height: 44px;
         margin-left: 140px;
@@ -380,7 +430,8 @@
         font-size: 2.3vw;
     }
     .btn2{
-        width: 80% ;
+        /* width: 80% ; */
+        width: 300px;
     }
     .vv4{
         font-size: 3.1vw;
@@ -401,7 +452,11 @@
     }
     .submitStyle{
         margin-top: 17px;
+        width: 100%;
     }
+}
+.submitStyle {
+   width: 177.91px;
 }
 
 
@@ -626,4 +681,29 @@ background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
 
 .zagryzka{
 font-size: 5vw;
+}
+
+/* ::-webkit-input-placeholder { 
+    font-size: 11px
+    }
+::-moz-placeholder { 
+    font-size: 11px
+}
+:-ms-input-placeholder { 
+    font-size: 11px
+}
+:-moz-placeholder {
+    font-size: 11px
+    } */
+
+.shParent{
+    display: flex;
+    justify-content: center;
+}
+
+.sh{
+    width: 100%;
+    text-align: center;
+    font-size: 1vw;
+    opacity: 0.5;
 }
