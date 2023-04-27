@@ -72,7 +72,7 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
 
   function wallPost(){
     bridge.send('VKWebAppShowWallPostBox', {
-        message: 'Я узнал тайну своего имени! Узнай и ты!' + " "  + moe.name_meaning,
+        message: 'Я узнал тайну своего имени! \n'   + moe.name_meaning + '\n'  + 'Узнай тайну и ты: https://vk.com/app51616632_70033480' , 
         attachment: 'https://vk.com/app51616632_70033480',
         owner_id: fetchedUser.id
       })
@@ -196,8 +196,13 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
                     </Button>
                 </Link>
             </div>
+            <div className='LineParent '>
+           <div className='LineItem'> </div>
+          </div>
         </>}
         </div>
+
+
   
 
         {name&& zagryzhay===true? 

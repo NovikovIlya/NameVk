@@ -158,9 +158,17 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
                 </Button>
             </Link>
         </div>
+
+      <div className='LineParent LineTop '>
+          <div className=' LineNum'> </div>
+      </div>
      
       <div className='container'>
-        <Title className='TitleStyle TAKs' weight="1" level="1" style={{ marginBottom: 16 }}>Узнай нумерологию своего имени!</Title>
+        {/* <Title className='TitleStyle TAKs' weight="1" level="1" style={{ marginBottom: 16 }}>Узнай нумерологию своего имени!</Title> */}
+
+        <div className="col-md-12 text-center">
+                <h3 className="animate-charcter"> Узнай нумерологию своего имени!</h3>
+        </div>
 
         <div className='baba'>
           {<Button onClick={()=>{
@@ -199,12 +207,12 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
                     clickVk()
                     
                     }}>
-                    <div>Получить данные из ВК</div>
+                    <div className='r5'>Получить данные из ВК</div>
                     {/* <div className='posleProsmotra'>После просмотра рекламы</div> */}
                 </Button>
                 <Button className='submitStyle' type="submit" onClick={fooButtonClickReward}>
                   {/* <div>Узнать за просмотр рекламы!</div> */}
-                  <div className='posleProsmotra'>Узнать! После просмотра рекламы</div>
+                  <div className='posleProsmotra'>Узнать! За просмотр рекламы</div>
                 </Button>
                
                 {errorZero&& <p>Не удалось получить данные. Попробуйте повторить попытку позднее</p>}

@@ -265,9 +265,7 @@ function Home({fetchedUser}) {
       <div className='container'>
         {/* <Title className='TitleStyle TAKs' weight="1" level="1" style={{ marginBottom: 16 }}>Узнай значение своего имени!</Title> */}
         
-        <div className="col-md-12 text-center">
-                <h3 className="animate-charcter"> Узнай значение своего имени!</h3>
-        </div>
+
 
         {zagr? 
           <div className='zagzag'>
@@ -277,11 +275,15 @@ function Home({fetchedUser}) {
         : ''}
 
         <div className='miniContainer'>
+          <div className='obertka'>
+          <div className="col-md-12 text-center">
+                  <h3 className="animate-charcter"> Узнай значение своего имени!</h3>
+          </div>
           <div className='InputParent'>
+            
+            <Input pattern='[А-Яа-яЁё]' type="text" value={searchTerm1} onChange={handleInputChange} className='inputStyle btnPoisk1' placeholder='Введите имя '/>
           
-          <Input pattern='[А-Яа-яЁё]' type="text" value={searchTerm1} onChange={handleInputChange} className='inputStyle btnPoisk1' placeholder='Введите имя '/>
-         
-          <Button className='btnPoisk btnPoisk2 ' onClick={handle}><div className='naiti'>Найти</div></Button>
+            <Button className='btnPoisk btnPoisk2 ' onClick={handle}><div className='naiti'>Найти</div></Button>
          
            {searchTerm1&& <Button onClick={()=>{
             setPokaz(false)
@@ -296,6 +298,11 @@ function Home({fetchedUser}) {
 
           
           </div>
+          </div>
+          <div className='LineParent LineTop'>
+           <div className='Line'> </div>
+          </div>
+           
 
           {/* {pokaz === false ?  
           <div className='shParent'>
@@ -349,9 +356,16 @@ function Home({fetchedUser}) {
                     </Button>
                 </div>
 
+                {LastNameList.length > 0&&<div className='LineParent LineTop'>
+                 <div className='Line'> </div>
+                </div>}
+
                 <div className='LastName'>
                 {LastNameList.length > 0 ? <>
-                  <Title className='TAKs'>История поиска</Title>
+                  {/* <Title className='TAKs'>История поиска</Title> */}
+                  <div className="col-md-12 text-center">
+                      <h3 className="animate-charcter"> История поиска</h3>
+                  </div>
                    {[...new Set(LastNameList)].map((LastName)=>(
                     LastName &&
                    <div className='LastNameDiv'>
