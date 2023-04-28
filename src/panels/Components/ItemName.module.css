@@ -5,6 +5,13 @@
 * Browsers: last 4 version
 */
 
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v8.4.14,
+* Autoprefixer: v10.4.7
+* Browsers: last 4 version
+*/
+
 .item {
   text-decoration: none;
   font-size: 4vw;
@@ -12,7 +19,15 @@
   border-radius: 50px;
   padding: 13px;
   margin-bottom: 30px;
-  box-shadow: inset 0 0 0.5px 1px hsla(0, 0%,  
+  -webkit-box-shadow: inset 0 0 0.5px 1px hsla(0, 0%,  
+    100%, 0.075),
+    /* shadow ring 👇 */
+    0 0 0 1px hsla(0, 0%, 0%, 0.05),
+    /* multiple soft shadows 👇 */
+    0 0.3px 0.4px hsla(0, 0%, 0%, 0.02),
+    0 0.9px 1.5px hsla(0, 0%, 0%, 0.045),
+    0 3.5px 6px hsla(0, 0%, 0%, 0.09);
+          box-shadow: inset 0 0 0.5px 1px hsla(0, 0%,  
     100%, 0.075),
     /* shadow ring 👇 */
     0 0 0 1px hsla(0, 0%, 0%, 0.05),
@@ -63,7 +78,15 @@
   display: flex ;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-      box-shadow: inset 0 0 0.5px 1px hsla(0, 0%,  
+      -webkit-box-shadow: inset 0 0 0.5px 1px hsla(0, 0%,  
+    100%, 0.075),
+    /* shadow ring 👇 */
+    0 0 0 1px hsla(0, 0%, 0%, 0.05),
+    /* multiple soft shadows 👇 */
+    0 0.3px 0.4px hsla(0, 0%, 0%, 0.02),
+    0 0.9px 1.5px hsla(0, 0%, 0%, 0.045),
+    0 3.5px 6px hsla(0, 0%, 0%, 0.09);
+              box-shadow: inset 0 0 0.5px 1px hsla(0, 0%,  
     100%, 0.075),
     /* shadow ring 👇 */
     0 0 0 1px hsla(0, 0%, 0%, 0.05),
@@ -79,8 +102,12 @@
   text-decoration: none;
   /* width: 100%; */
   width: 254px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .mean,.people{
@@ -90,7 +117,15 @@
   min-width: 90%;
   text-align: flex-start;
   padding: 5px;
-  box-shadow: inset 0 0 0.5px 1px hsla(0, 0%,  
+  -webkit-box-shadow: inset 0 0 0.5px 1px hsla(0, 0%,  
+  100%, 0.075),
+  /* shadow ring 👇 */
+  0 0 0 1px hsla(0, 0%, 0%, 0.05),
+  /* multiple soft shadows 👇 */
+  0 0.3px 0.4px hsla(0, 0%, 0%, 0.02),
+  0 0.9px 1.5px hsla(0, 0%, 0%, 0.045),
+  0 3.5px 6px hsla(0, 0%, 0%, 0.09);
+          box-shadow: inset 0 0 0.5px 1px hsla(0, 0%,  
   100%, 0.075),
   /* shadow ring 👇 */
   0 0 0 1px hsla(0, 0%, 0%, 0.05),
