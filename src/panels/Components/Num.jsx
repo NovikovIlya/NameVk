@@ -1,10 +1,10 @@
 import React,{useState,useEffect,useContext} from 'react';
 import './../Home.css'
 import bridge from '@vkontakte/vk-bridge';
-import {Icon20HelpOutline,Icon20ArrowUturnLeftOutline, Icon20FavoriteCircleFillYellow,Icon20NotificationOutline ,Icon20CrownCircleFillVkDating} from '@vkontakte/icons';
+import {Icon28ErrorCircleOutline,Icon20HelpOutline,Icon20ArrowUturnLeftOutline, Icon20FavoriteCircleFillYellow,Icon20NotificationOutline ,Icon20CrownCircleFillVkDating} from '@vkontakte/icons';
 import styles from './ItemName.module.css'
 import { Link, useParams } from 'react-router-dom'
-import { Panel, PanelHeader, Header, Button, Group, Cell, Div, Avatar,Title, Text,Input } from '@vkontakte/vkui';
+import {Snackbar, Panel, PanelHeader, Header, Button, Group, Cell, Div, Avatar,Title, Text,Input } from '@vkontakte/vkui';
 import { Context } from "./../Context";
 
 
@@ -19,6 +19,8 @@ function Num({fetchedUser}) {
   const [dataNumer,setDataNumer] = useState('')
   const [errorZero,setErrorZero] = useState(false)
   const [resp,setResp] = useState('')
+  const [text, setText] = React.useState('');
+  const [snackbar, setSnackbar] = React.useState(null);
 
   bridge.send('VKWebAppCheckNativeAds', { ad_format: 'interstitial' })
   .then((data) => {
@@ -92,11 +94,27 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
     setsurNameUser(text)
   }
 
+  const openError = () => {
+    if (snackbar) return;
+    setSnackbar(
+      <Snackbar
+        onClose={() => setSnackbar(null)}
+        before={<Icon28ErrorCircleOutline fill="var(--vkui--color_icon_negative)" />}
+      >
+        Необходимо ввести имя!
+      </Snackbar>,
+    );
+  };
 
 
   function handleSubmit(e) {
-    
     e.preventDefault();
+    if(nameUser === ''){
+      // alert('Необходимо ввести имя!')
+      openError()
+      return
+    }
+    
     async function haha(){
         try {
             let response = await fetch(`https://atoma-horoscope.onrender.com/name_numerology/?name=${nameUser}&familyname=${familyUser}&fathername=${surNameUser}`); // завершается с заголовками ответа
@@ -175,7 +193,7 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
               setFamilyUser('')
               setNameUser('')
               setsurNameUser('')
-              }} className={`btnDelete2 ${familyUser?'':'zero3'}`} mode='outline' appearance='neutral'>Очистить форму</Button>}
+              }} className={`btnDelete2 ${familyUser || nameUser || surNameUser ?'':'zero3'}`} mode='outline' appearance='neutral'>Очистить форму</Button>}
         </div>
 
         <form method="post" onSubmit={handleSubmit} className='formStyle'>
@@ -215,8 +233,14 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
                   <div className='posleProsmotra'>Узнать! За просмотр рекламы</div>
                 </Button>
                
-                {errorZero&& <p>Не удалось получить данные. Попробуйте повторить попытку позднее</p>}
+                
             </div>
+            {errorZero&& 
+                <div className='poprobuiteParent'>
+                  <p className='poprobuite'>Не удалось получить данные. Попробуйте повторить попытку позднее</p>
+                </div>}
+
+
 
             
         </form>
@@ -234,6 +258,13 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
             </>
         }
       </div>
+      {text && (
+          <Group>
+            <Div>{text}</Div>
+          </Group>
+        )}
+
+        {snackbar}
     </>
   );
 }

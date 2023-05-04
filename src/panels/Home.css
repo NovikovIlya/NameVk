@@ -370,7 +370,15 @@
 }
 
 .LastNameLink:hover{
-    color:antiquewhite
+    color:rgb(1, 13, 189)
+}
+.poprobuite{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.poprobuite{
+    text-align: center;
 }
 .vv{
     /* width: 100%; */

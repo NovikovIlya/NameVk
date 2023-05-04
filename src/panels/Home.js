@@ -1,10 +1,10 @@
 import React,{useState,useEffect,useContext} from 'react';
 import './Home.css'
 import bridge from '@vkontakte/vk-bridge';
-import {Icon20HelpOutline, Icon20FavoriteCircleFillYellow,Icon20NotificationOutline ,Icon20CrownCircleFillVkDating} from '@vkontakte/icons';
+import {Icon28ErrorCircleOutline ,Icon20HelpOutline, Icon20FavoriteCircleFillYellow,Icon20NotificationOutline ,Icon20CrownCircleFillVkDating} from '@vkontakte/icons';
 import {useLastName} from './../Store'
 import { Link, useParams } from 'react-router-dom'
-import { Panel, PanelHeader, Header, Button, Group, Cell, Div, Avatar,Title, Text,Input } from '@vkontakte/vkui';
+import { Panel, PanelHeader, Header, Button, Group, Cell, Div, Avatar,Title, Text,Input,Snackbar } from '@vkontakte/vkui';
 import ItemName from './Components/ItemName';
 import { Context } from "./Context";
 import {dataZero} from './../data'
@@ -34,6 +34,7 @@ function Home({fetchedUser}) {
     .catch((error) => { console.log(error); /* Ошибка */ });
   }
 
+  const [dis,setDis] = useState(true)
   const [podpiska,setPodpiska] = useState(false)
   const [izbran,setIzbran] = useState(false)
   const [context, setContext] = useContext(Context);
@@ -43,39 +44,10 @@ function Home({fetchedUser}) {
 	const [netImeni,setNetImeni] = useState(false)
   const [conditionValue,setContditionValue] = useState(false)
   const andeknodts = dataZero
-	// const andeknodts = [
-  //     {
-  //         name: "Августин",
-  //         mean: "\"Августин\" - это имя латинского происхождения, которое переводится как \"величественный\", \"возвышенный\", \"почтенный\".",
-  //         people: "",
-  //         dateName: "",
- 
-  //     {
-  //         name: "Агап",
-  //         mean: "\"Агап\" - это имя греческого происхождения, которое переводится как \"любовь\", \"любящий\".",
-  //         people: "",
-  //         dateName: ""
-  //     },
-  //     {
-  //         name: "Агата",
-  //         mean: "\"Агата\" - это имя греческого происхождения, которое переводится как \"благородная\", \"добрая\", \"благоприятствующая\".",
-  //         people: "",
-  //         dateName: ""
-  //     },
-  //     {
-  //         name: "Агафья",
-  //         mean: "\"Агафья\" - это имя греческого происхождения, которое переводится как \"добрый\", \"благой\", \"благоприятствующий\".",
-  //         people: "",
-  //         dateName: ""
-  //     },
-  //     {
-  //         name: "Адам",
-  //         mean: "\"Адам\" - это имя еврейского происхождения, которое переводится как \"человек\", \"человечество\", \"земля\".",
-  //         people: "Адам из игры Дес Икс ",
-  //         dateName: "1 января"
-  //     },
-      
-	// ]
+  const [text, setText] = React.useState('');
+  const [snackbar, setSnackbar] = React.useState(null);
+	
+	
 
    const poslendi = (value)=>{
     setPoslednieImenas(...poslednieImenas,value)
@@ -108,15 +80,40 @@ function Home({fetchedUser}) {
     setContext(false)
   }
 
+  const openError = () => {
+    if (snackbar) return;
+    setSnackbar(
+      <Snackbar
+        onClose={() => setSnackbar(null)}
+        before={<Icon28ErrorCircleOutline fill="var(--vkui--color_icon_negative)" />}
+      >
+        Введен неккоректный текст - спецсимвол. Ввод только на кириллице.
+      </Snackbar>,
+    );
+  };
 
   const [searchTerm, setSearchTerm] = useState('');
   const [searchTerm1, setSearchTerm1] = useState('');
   const [pokaz,setPokaz] = useState(false)
+  
+  function isValid(username) {
+    return /^[А-Яа-яЁё]+$/.test(username)
+ }
 
   const handleInputChange = (event) => {
+    
     const text = event.target.value
+    if(text.length>0 && isValid(text)===false){
+      // alert('Введен неккоректный текст (спецсимвол)')
+      openError()
+      return text.slice(0,-1)
+
+    }
     const textCorrect = text.trim()
     setSearchTerm1(textCorrect);
+    
+
+
     if (searchTerm1.length >100){
       setPokaz(true)
     }else if (searchTerm1.length <= 1){
@@ -125,6 +122,14 @@ function Home({fetchedUser}) {
     if (text === ''){
       setSearchTerm1('')
       setSearchTerm('')
+    }
+    if (text.length > 1){
+      setDis(false)
+    }
+    console.log('teeext',text.length);
+    
+    if (text.length <= 1){
+      setDis(true)
     }
     
     // console.log(searchTerm);
@@ -144,8 +149,7 @@ function Home({fetchedUser}) {
     
   };
 
-  const handle = (event) => {
-    
+  const handle = (event) => { 
     setSearchTerm(searchTerm1);
     setPokaz(true)
 
@@ -161,19 +165,22 @@ function Home({fetchedUser}) {
       setNetImeni(false)
     }
     
+    
   };
 
 
 
   const searchResults = getSearchResults(searchTerm);
 
-  
   function getSearchResults(query) {
     const data = dataZeroName
     console.log(data);
     
-    return data.filter((item) =>
+    return data.filter((item) =>{
+    return(
       item.toLowerCase().includes(query.toLowerCase())
+      
+      )}
       // Object.keys(item).join().toLowerCase().includes(query.toLowerCase())
     );
   }
@@ -277,22 +284,24 @@ function Home({fetchedUser}) {
         <div className='miniContainer'>
           <div className='obertka'>
           <div className="col-md-12 text-center">
-                  <h3 className="animate-charcter"> Узнай значение своего имени!</h3>
+                  <h3 className="animate-charcter"> Узнайте значение своего имени!</h3>
           </div>
           <div className='InputParent'>
             
-            <Input pattern='[А-Яа-яЁё]' type="text" value={searchTerm1} onChange={handleInputChange} className='inputStyle btnPoisk1' placeholder='Введите имя '/>
+            <Input maxLength={17} pattern='[А-Яа-яЁё]' type="text" value={searchTerm1} onChange={handleInputChange} className='inputStyle btnPoisk1' placeholder='Введите имя '/>
           
-            <Button className='btnPoisk btnPoisk2 ' onClick={handle}><div className='naiti'>Найти</div></Button>
+            <Button disabled={dis? 'disabled' : ''} className='btnPoisk btnPoisk2 ' onClick={handle}><div className='naiti'>Найти</div></Button>
          
            {searchTerm1&& <Button onClick={()=>{
             setPokaz(false)
             setSearchTerm1('')
+            setDis(true)
             setSearchTerm('')}} className='btnDelete' mode='outline' appearance='neutral'>X</Button>}
 
            {searchTerm1 === '' && <Button onClick={()=>{
               console.log(fetchedUser)
               NameVk()
+              setDis(false)
 
             }} className='btnDelete' mode='outline' appearance='neutral'>VK</Button>}
 
@@ -320,7 +329,7 @@ function Home({fetchedUser}) {
                              <img className='img1' src='https://i.ibb.co/THpPyDj/1.png'/>
                             </div>
                              
-                             <p className='vv3 vv4'>Узнай нумерологию<br></br> своего имени!</p>
+                             <p className='vv3 vv4'>Узнайте нумерологию<br></br> своего имени!</p>
                         </div>
                     </Button>
                   </Link>
@@ -361,12 +370,14 @@ function Home({fetchedUser}) {
                 </div>}
 
                 <div className='LastName'>
-                {LastNameList.length > 0 ? <>
+                {LastNameList.length > 0 ? LastNameList !== null&& <>
                   {/* <Title className='TAKs'>История поиска</Title> */}
                   <div className="col-md-12 text-center">
+                 
                       <h3 className="animate-charcter"> История поиска</h3>
                   </div>
                    {[...new Set(LastNameList)].map((LastName)=>(
+                    
                     LastName &&
                    <div className='LastNameDiv'>
                       
@@ -383,7 +394,7 @@ function Home({fetchedUser}) {
             }
          {searchTerm && 
          <div className='netImeniStyle'>
-          {searchResults.length > 0 ? '' : <p className='isomoeImya'>Искомое имя не найдено. Проверьте правильность введеного имени. Ввод имени только на кириллице</p>}
+          {searchResults.length > 0 ? '' : <p className='isomoeImya'>Искомое имя не найдено. Проверьте правильность введенного имени. Ввод имени только на кириллице</p>}
          </div>}
 
          {searchTerm === '' ? '' : <>
@@ -400,6 +411,13 @@ function Home({fetchedUser}) {
           </>}
         </div>
         {conditionValue && <p className ='red'>Потеряна связь с интернетом</p>}
+        {text && (
+          <Group>
+            <Div>{text}</Div>
+          </Group>
+        )}
+
+        {snackbar}
       </div>
     </>
   );

@@ -63,16 +63,28 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
         setUser(user);
     }
     fetchData();
+    
     console.log(fetchedUser);
+    
+    // if (pol === 1){
+    //   let textPol = 'Теперь мне известна тайна моего имени! \n'   + moe.name_meaning + '\n'  + 'Узнай тайну и ты: https://vk.com/app51616632_70033480'
+    // }
+    // if (pol === 2){
+    //   let textPol = 'Я узнал тайну имени! \n'   + moe.name_meaning + '\n'  + 'Узнай тайну и ты: https://vk.com/app51616632_70033480'
+    // }
+    // if (pol === 0){
+    //   let textPol = 'Я узнал тайну имени! \n'   + moe.name_meaning + '\n'  + 'Узнай тайну и ты: https://vk.com/app51616632_70033480'
+    // }
+
   },[])
 
   useEffect(()=>{
     setTimeout(menyamZagr1,2000)
   },[])
-
+  
   function wallPost(){
     bridge.send('VKWebAppShowWallPostBox', {
-        message: 'Я узнал тайну имени! \n'   + moe.name_meaning + '\n'  + 'Узнай тайну и ты: https://vk.com/app51616632_70033480' , 
+        message: 'Теперь мне известна тайна моего имени! \n'   + moe.name_meaning + '\n'  + 'Узнай тайну и ты: https://vk.com/app51616632_70033480' , 
         attachment: 'https://vk.com/app51616632_70033480',
         owner_id: fetchedUser.id
       })
