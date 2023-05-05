@@ -171,7 +171,7 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
             <Link className={styles.btnLink} to='/' >
                 <Button   className={styles.btn}>
                     <div className='btnKek'>
-                        <Icon20ArrowUturnLeftOutline/>Назад
+                        <Icon20ArrowUturnLeftOutline/><p>Назад</p>
                     </div>
                 </Button>
             </Link>
@@ -193,6 +193,7 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
               setFamilyUser('')
               setNameUser('')
               setsurNameUser('')
+              setDataNumer('')
               }} className={`btnDelete2 ${familyUser || nameUser || surNameUser ?'':'zero3'}`} mode='outline' appearance='neutral'>Очистить форму</Button>}
         </div>
 

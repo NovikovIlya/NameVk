@@ -57,7 +57,7 @@ bridge.send('VKWebAppShowBannerAd', {
             <Link className={styles.btnLink} to='/' >
                 <Button   className={styles.btn}>
                     <div className='btnKek'>
-                        <Icon20ArrowUturnLeftOutline/>Назад
+                        <Icon20ArrowUturnLeftOutline/><p>Назад</p>
                     </div>
                 </Button>
             </Link>

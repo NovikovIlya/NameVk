@@ -304,6 +304,7 @@ function Home({fetchedUser}) {
               setDis(false)
 
             }} className='btnDelete' mode='outline' appearance='neutral'>VK</Button>}
+          
 
           
           </div>
@@ -357,7 +358,7 @@ function Home({fetchedUser}) {
                         </div>
                     </Button>
                 </div>
-                <div className={`izbrannoeBtn ${podpiska? 'zero2' : ''}`}>
+                <div className={`izbrannoeBtn mb ${podpiska? 'zero2' : ''}`}>
                     <Button className='btn2 fac' onClick={podiskaUvedomlenie}  >
                         <div className='btnKek '>
                              <Icon20NotificationOutline/><p className='vv4'>Подпишитесь на уведомления!</p>
@@ -394,7 +395,7 @@ function Home({fetchedUser}) {
             }
          {searchTerm && 
          <div className='netImeniStyle'>
-          {searchResults.length > 0 ? '' : <p className='isomoeImya'>Искомое имя не найдено. Проверьте правильность введенного имени. Ввод имени только на кириллице</p>}
+          {searchResults.length > 0 ? '' : <p className='isomoeImya'>Искомое имя не найдено. Проверьте правильность введенного имени. Ввод имени только на кириллице.</p>}
          </div>}
 
          {searchTerm === '' ? '' : <>
