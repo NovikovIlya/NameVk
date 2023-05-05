@@ -603,12 +603,31 @@
         height: 100%;
     }
 }
+@media screen and (max-width: 750px) {
+    .submitStyle0 {
+        margin: 10px;
+    }
+    .btnBox{
+        
+        display:-webkit-box;
+        display:-ms-flexbox;
+        display:flex;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+        -webkit-box-pack: center !important;
+            -ms-flex-pack: center !important;
+                justify-content: center !important;
+    }
+}
+
 
 @media screen and (max-width: 640px) {
     .btnDelete{
         height: 100%;
     }
+    
 }
+
 
 @media screen and (max-width: 600px) {
     .Line{
@@ -703,6 +722,12 @@
 }   
 .wh1{
     width: 100% !important;
+}
+
+@media screen and (max-width: 240px) {
+    .btnDelete{
+        margin-left: 40px ;
+    }
 }
 }
 .submitStyle {
@@ -826,10 +851,14 @@ background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%); */
     /* border-radius: 50%; */
     padding-bottom: 20px;
 }
+.redParent{
+    display: flex;
+    justify-content: center;
+}
 
 .whText{
     width: 100%;
-    font-size: 1.5vw;
+    font-size: 3vw;
     color:white !important;
 }
 .pNeaidenParent{

@@ -196,6 +196,7 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
   return (
     <div className={styles.containerItem}>
     {err? <p>Не удалось получить данные. Попробуйте повторить попытку позднее</p> : ''}
+    {name && conditionValue && <p className ='red'>Потеряна связь с интернетом</p>}
     
         <div className={`wh ${moeName? context? 'zero1' : '' : ''}`}>
         {name && <>
@@ -228,9 +229,9 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
 			    </div>
             
         : ''}
-
+        
         <div className={` whBlock ${moeName? context? 'zero1' : '' : ''}`}>
-            {conditionValue && <p className ='red'>Потеряна связь с интернетом</p>}
+           
             {name ? '' : 
             err ===false && <>
             <Link onClick={zagryzimReclamy} className={styles.item}  to={`/${name1}`}>{name1}</Link>

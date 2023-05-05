@@ -199,21 +199,21 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
 
         <form method="post" onSubmit={handleSubmit} className='formStyle'>
           <div className='papaBox'>
-            <Input className='inputNum' value={familyUser} placeholder='Введите Фамилию' onChange={handleFamily}/>
+            <Input className='inputNum' value={familyUser} placeholder='Введите фамилию' onChange={handleFamily}/>
             {/* {familyUser&& <Button onClick={()=>{
             setFamilyUser('')
             }} className='btnDelete1' mode='outline' appearance='neutral'>X</Button>} */}
           </div>
             
           <div className='papaBox'>
-            <Input className='inputNum' value={nameUser}   placeholder='Введите Имя' onChange={handleName}/>
+            <Input className='inputNum' value={nameUser}   placeholder='Введите имя' onChange={handleName}/>
             {/* {nameUser&& <Button onClick={()=>{
             setNameUser('')
             }} className='btnDelete1' mode='outline' appearance='neutral'>X</Button>} */}
           </div>
 
           <div className='papaBox'>
-            <Input className='inputNum' value={surNameUser}  placeholder='Введите Отчество' onChange={handleSurName}/>
+            <Input className='inputNum' value={surNameUser}  placeholder='Введите отчество' onChange={handleSurName}/>
             {/* {surNameUser&& <Button onClick={()=>{
             setsurNameUser('')
             }} className='btnDelete1' mode='outline' appearance='neutral'>X</Button>} */}

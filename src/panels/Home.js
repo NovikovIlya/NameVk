@@ -87,7 +87,19 @@ function Home({fetchedUser}) {
         onClose={() => setSnackbar(null)}
         before={<Icon28ErrorCircleOutline fill="var(--vkui--color_icon_negative)" />}
       >
-        Введен неккоректный текст - спецсимвол. Ввод только на кириллице.
+        Нельзя вводить спецсимволы и иностранные символы. Ввод только на кириллице.
+      </Snackbar>,
+    );
+  };
+  
+  const openError1 = () => {
+    if (snackbar) return;
+    setSnackbar(
+      <Snackbar
+        onClose={() => setSnackbar(null)}
+        before={<Icon28ErrorCircleOutline fill="var(--vkui--color_icon_negative)" />}
+      >
+        Отсутсвует сеть. Поиск невозможен.
       </Snackbar>,
     );
   };
@@ -123,12 +135,12 @@ function Home({fetchedUser}) {
       setSearchTerm1('')
       setSearchTerm('')
     }
-    if (text.length > 1){
+    if (text.length > 2){
       setDis(false)
     }
     console.log('teeext',text.length);
     
-    if (text.length <= 1){
+    if (text.length <= 2){
       setDis(true)
     }
     
@@ -150,6 +162,10 @@ function Home({fetchedUser}) {
   };
 
   const handle = (event) => { 
+    if(conditionValue === true){
+      openError1()
+      return
+    }
     setSearchTerm(searchTerm1);
     setPokaz(true)
 
@@ -268,7 +284,7 @@ function Home({fetchedUser}) {
  
   return (
     <>
-     
+      
       <div className='container'>
         {/* <Title className='TitleStyle TAKs' weight="1" level="1" style={{ marginBottom: 16 }}>Узнай значение своего имени!</Title> */}
         
@@ -304,7 +320,7 @@ function Home({fetchedUser}) {
               setDis(false)
 
             }} className='btnDelete' mode='outline' appearance='neutral'>VK</Button>}
-          
+            
 
           
           </div>
@@ -312,7 +328,7 @@ function Home({fetchedUser}) {
           <div className='LineParent LineTop'>
            <div className='Line'> </div>
           </div>
-           
+          
 
           {/* {pokaz === false ?  
           <div className='shParent'>
@@ -411,7 +427,7 @@ function Home({fetchedUser}) {
           </ul>
           </>}
         </div>
-        {conditionValue && <p className ='red'>Потеряна связь с интернетом</p>}
+        
         {text && (
           <Group>
             <Div>{text}</Div>
@@ -420,6 +436,11 @@ function Home({fetchedUser}) {
 
         {snackbar}
       </div>
+      {conditionValue && 
+      <div className='redParent'>
+        <p className ='red'>Потеряна связь с интернетом</p>
+      </div>}
+      
     </>
   );
 }
