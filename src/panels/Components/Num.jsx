@@ -76,20 +76,38 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
 
 
   function handleName(event){
+
     const text = event.target.value
+    if(text.length>0 && isValid(text)===false){
+      // alert('Введен неккоректный текст (спецсимвол)')
+      openErrorCiril()
+      return text.slice(0,-1)
+    }
     console.log(text);
     setNameUser(text)
     
   }
 
   function handleFamily(event){
+
     const text = event.target.value
+    if(text.length>0 && isValid(text)===false){
+      // alert('Введен неккоректный текст (спецсимвол)')
+      openErrorCiril()
+      return text.slice(0,-1)
+    }
     console.log(text);
     setFamilyUser(text)
   }
 
   function handleSurName(event){
+
     const text = event.target.value
+    if(text.length>0 && isValid(text)===false){
+      // alert('Введен неккоректный текст (спецсимвол)')
+      openErrorCiril()
+      return text.slice(0,-1)
+    }
     console.log(text);
     setsurNameUser(text)
   }
@@ -102,6 +120,22 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
         before={<Icon28ErrorCircleOutline fill="var(--vkui--color_icon_negative)" />}
       >
         Необходимо ввести имя!
+      </Snackbar>,
+    );
+  };
+
+  function isValid(username) {
+    return /^[А-Яа-яЁё]+$/.test(username)
+ }
+
+  const openErrorCiril = () => {
+    if (snackbar) return;
+    setSnackbar(
+      <Snackbar
+        onClose={() => setSnackbar(null)}
+        before={<Icon28ErrorCircleOutline fill="var(--vkui--color_icon_negative)" />}
+      >
+        Нельзя вводить спецсимволы и иностранные буквы. Ввод только на кириллице.
       </Snackbar>,
     );
   };

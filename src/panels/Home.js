@@ -87,7 +87,7 @@ function Home({fetchedUser}) {
         onClose={() => setSnackbar(null)}
         before={<Icon28ErrorCircleOutline fill="var(--vkui--color_icon_negative)" />}
       >
-        Нельзя вводить спецсимволы и иностранные символы. Ввод только на кириллице.
+        Нельзя вводить спецсимволы и иностранные буквы. Ввод только на кириллице.
       </Snackbar>,
     );
   };
@@ -100,6 +100,17 @@ function Home({fetchedUser}) {
         before={<Icon28ErrorCircleOutline fill="var(--vkui--color_icon_negative)" />}
       >
         Отсутсвует сеть. Поиск невозможен.
+      </Snackbar>,
+    );
+  };
+  const openError2 = () => {
+    if (snackbar) return;
+    setSnackbar(
+      <Snackbar
+        onClose={() => setSnackbar(null)}
+        before={<Icon28ErrorCircleOutline fill="var(--vkui--color_icon_negative)" />}
+      >
+        Отсутсвует сеть.
       </Snackbar>,
     );
   };
@@ -217,6 +228,10 @@ function Home({fetchedUser}) {
   }
 
   function izbranoe(){
+    if(conditionValue === true){
+      openError2()
+      return
+    }
     bridge.send('VKWebAppAddToFavorites')
   .then((data) => { 
     if (data.result) {
@@ -234,6 +249,10 @@ function Home({fetchedUser}) {
   
 
   function podiskaUvedomlenie(){
+    if(conditionValue === true){
+      openError2()
+      return
+    }
     bridge.send('VKWebAppAllowNotifications')
   .then((data) => { 
     if (data.result) {
