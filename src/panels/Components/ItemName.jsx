@@ -13,9 +13,6 @@ import {dataZero} from './../../data'
 
 
 
-
-
-
 const ItemName = ({name1,getAnekdots,zagr,poslendi}) => {
   const [zagr1,setZagr1] = useState(true)
   const [context, setContext] = useContext(Context);
@@ -28,6 +25,21 @@ const ItemName = ({name1,getAnekdots,zagr,poslendi}) => {
 
   // Проверка готовности рекламы
 bridge.send('VKWebAppCheckNativeAds', { ad_format: 'reward' })
+.then((data) => {
+  if (data.result) {
+    // Предзагруженная реклама есть.
+
+    // Теперь можно создать кнопку
+    // "Посмотрите рекламу".   
+    // ...
+          
+  } else {
+    console.log('Рекламные материалы не найдены.');
+  }
+})
+.catch((error) => { console.log(error); /* Ошибка */  });
+
+bridge.send('VKWebAppCheckNativeAds', { ad_format: 'interstitial' })
 .then((data) => {
   if (data.result) {
     // Предзагруженная реклама есть.
@@ -56,6 +68,19 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
   .catch((error) => { console.log(error); /* Ошибка */ });
 }
 
+function fooButtonClick()
+{
+// Показать рекламу
+bridge.send('VKWebAppShowNativeAds', { ad_format: 'interstitial' })
+  .then((data) => {
+    if (data.result) // Успех
+      console.log('Реклама показана');
+    else // Ошибка 
+      console.log('Ошибка при показе');
+  })
+  .catch((error) => { console.log(error); /* Ошибка */ });
+}
+
 
   useEffect(() => {
     async function fetchData() {
@@ -66,15 +91,7 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
     
     console.log(fetchedUser);
     
-    // if (pol === 1){
-    //   let textPol = 'Теперь мне известна тайна моего имени! \n'   + moe.name_meaning + '\n'  + 'Узнай тайну и ты: https://vk.com/app51616632_70033480'
-    // }
-    // if (pol === 2){
-    //   let textPol = 'Я узнал тайну имени! \n'   + moe.name_meaning + '\n'  + 'Узнай тайну и ты: https://vk.com/app51616632_70033480'
-    // }
-    // if (pol === 0){
-    //   let textPol = 'Я узнал тайну имени! \n'   + moe.name_meaning + '\n'  + 'Узнай тайну и ты: https://vk.com/app51616632_70033480'
-    // }
+
 
   },[])
 
@@ -100,12 +117,11 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
  
 
   const menyamZagr1 = ()=>{
-    // setZagr1(prev => false)
     setContext(false)
   }
 
   const {name} = useParams()
-  // const data1 = dataZero
+ 
   
   let moeName
   useEffect(()=>{
@@ -127,8 +143,6 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
           console.log(moeName);
           setErr(false)
           setZagryszhay(false)
-
-
           addOld(result)
         }
         sendName()
@@ -147,7 +161,9 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
   
 
   
-  
+  // useEffect(()=>{
+  //   zagryzimReclamy()
+  // },[])
 
   const zagryzimReclamy = ()=>{
     if(context !== false){
@@ -290,7 +306,7 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
                     <Button  onClick={wallPost} className={styles.btn}>
                       
                         <div className='btnKek'>
-                              <Icon20ArrowshapeLeft2Outline/><p className='Ppublic'>Опубликовать на стене!</p>
+                              <Icon20ArrowshapeLeft2Outline/><p className='Ppublic Ppublic1'>Опубликовать на стене!</p>
                           </div>
                       
                         

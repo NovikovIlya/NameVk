@@ -78,11 +78,11 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
   function handleName(event){
 
     const text = event.target.value
-    if(text.length>0 && isValid(text)===false){
-      // alert('Введен неккоректный текст (спецсимвол)')
-      openErrorCiril()
-      return text.slice(0,-1)
-    }
+    // if(text.length>0 && isValid(text)===false){
+    //   // alert('Введен неккоректный текст (спецсимвол)')
+    //   openErrorCiril()
+    //   return text.slice(0,-1)
+    // }
     console.log(text);
     setNameUser(text)
     
@@ -91,11 +91,7 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
   function handleFamily(event){
 
     const text = event.target.value
-    if(text.length>0 && isValid(text)===false){
-      // alert('Введен неккоректный текст (спецсимвол)')
-      openErrorCiril()
-      return text.slice(0,-1)
-    }
+
     console.log(text);
     setFamilyUser(text)
   }
@@ -103,11 +99,7 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
   function handleSurName(event){
 
     const text = event.target.value
-    if(text.length>0 && isValid(text)===false){
-      // alert('Введен неккоректный текст (спецсимвол)')
-      openErrorCiril()
-      return text.slice(0,-1)
-    }
+
     console.log(text);
     setsurNameUser(text)
   }
@@ -125,7 +117,8 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
   };
 
   function isValid(username) {
-    return /^[А-Яа-яЁё]+$/.test(username)
+    // return /^[А-Яа-яЁё]+[a-z]+$/.test(username)
+    return /^[а-яА-ЯёЁi\-\.]+$/.test(username)
  }
 
   const openErrorCiril = () => {
@@ -135,7 +128,7 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
         onClose={() => setSnackbar(null)}
         before={<Icon28ErrorCircleOutline fill="var(--vkui--color_icon_negative)" />}
       >
-        Нельзя вводить спецсимволы и иностранные буквы. Ввод только на кириллице.
+        Нельзя вводить спецсимволы. Ввод только на кириллице.
       </Snackbar>,
     );
   };
@@ -148,7 +141,25 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
       openError()
       return
     }
-    
+    if(isValid(nameUser)===false){
+      // alert('Введен неккоректный текст (спецсимвол)')
+      openErrorCiril()
+      return
+      // return text.slice(0,-1)
+    }
+    // if(isValid(surNameUser)===false){
+    //   // alert('Введен неккоректный текст (спецсимвол)')
+    //   openErrorCiril()
+    //   return
+    //   // return text.slice(0,-1)
+    // }
+    // if(isValid(familyUser)===false){
+    //   // alert('Введен неккоректный текст (спецсимвол)')
+    //   openErrorCiril()
+    //   return
+    //   // return text.slice(0,-1)
+    // }
+    fooButtonClickReward()
     async function haha(){
         try {
             let response = await fetch(`https://atoma-horoscope.onrender.com/name_numerology/?name=${nameUser}&familyname=${familyUser}&fathername=${surNameUser}`); // завершается с заголовками ответа
@@ -263,7 +274,7 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
                     <div className='r5'>Получить данные из ВК</div>
                     {/* <div className='posleProsmotra'>После просмотра рекламы</div> */}
                 </Button>
-                <Button className='submitStyle' type="submit" onClick={fooButtonClickReward}>
+                <Button className='submitStyle' type="submit" >
                   {/* <div>Узнать за просмотр рекламы!</div> */}
                   <div className='posleProsmotra'>Узнать! За просмотр рекламы</div>
                 </Button>

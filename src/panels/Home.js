@@ -87,7 +87,7 @@ function Home({fetchedUser}) {
         onClose={() => setSnackbar(null)}
         before={<Icon28ErrorCircleOutline fill="var(--vkui--color_icon_negative)" />}
       >
-        Нельзя вводить спецсимволы и иностранные буквы. Ввод только на кириллице.
+        Нельзя вводить спецсимволы. Ввод только на кириллице.
       </Snackbar>,
     );
   };
@@ -120,18 +120,18 @@ function Home({fetchedUser}) {
   const [pokaz,setPokaz] = useState(false)
   
   function isValid(username) {
-    return /^[А-Яа-яЁё]+$/.test(username)
+    return /^[а-яА-ЯёЁi]+$/.test(username)
  }
 
   const handleInputChange = (event) => {
     
     const text = event.target.value
-    if(text.length>0 && isValid(text)===false){
-      // alert('Введен неккоректный текст (спецсимвол)')
-      openError()
-      return text.slice(0,-1)
+    // if(text.length>0 && isValid(text)===false){
+    //   // alert('Введен неккоректный текст (спецсимвол)')
+    //   openError()
+    //   return text.slice(0,-1)
 
-    }
+    // }
     const textCorrect = text.trim()
     setSearchTerm1(textCorrect);
     
@@ -155,27 +155,18 @@ function Home({fetchedUser}) {
       setDis(true)
     }
     
-    // console.log(searchTerm);
-    // console.log('111',searchResults);
-
-    // if (searchResults === '' && searchTerm != '' ){
-    //   console.log('Нет таких имен!');
-    //   console.log(searchResults);
-    //   setNetImeni(true)
-      
-    // }else if (searchTerm == ''){
-    //   setNetImeni(false)
-    // }
-    // else {
-    //   setNetImeni(false)
-    // }
-    
   };
 
   const handle = (event) => { 
     if(conditionValue === true){
       openError1()
       return
+    }
+    if( isValid(searchTerm1)===false){
+      // alert('Введен неккоректный текст (спецсимвол)')
+      openError()
+      return 
+
     }
     setSearchTerm(searchTerm1);
     setPokaz(true)
@@ -191,8 +182,6 @@ function Home({fetchedUser}) {
     else {
       setNetImeni(false)
     }
-    
-    
   };
 
 
@@ -302,13 +291,9 @@ function Home({fetchedUser}) {
   });
  
   return (
-    <>
-      
+    <> 
       <div className='container'>
-        {/* <Title className='TitleStyle TAKs' weight="1" level="1" style={{ marginBottom: 16 }}>Узнай значение своего имени!</Title> */}
-        
-
-
+       
         {zagr? 
           <div className='zagzag'>
               <p>Идет загрузка...</p> 
@@ -337,7 +322,6 @@ function Home({fetchedUser}) {
               console.log(fetchedUser)
               NameVk()
               setDis(false)
-
             }} className='btnDelete' mode='outline' appearance='neutral'>VK</Button>}
             
 
@@ -347,12 +331,11 @@ function Home({fetchedUser}) {
           <div className='LineParent LineTop'>
            <div className='Line'> </div>
           </div>
-          
+          {conditionValue && 
+         <div className='redParent'>
+            <p className ='red'>Потеряна связь с интернетом</p>
+          </div>}
 
-          {/* {pokaz === false ?  
-          <div className='shParent'>
-            <p className='sh'>Ввод имени только на кириллице</p>
-          </div> : ""} */}
           
             { pokaz === false? 
            
@@ -380,7 +363,7 @@ function Home({fetchedUser}) {
                               <img className='img1' src='https://i.ibb.co/V9cpmBn/2.png'/>
                             </div>
                              
-                             <p className='vv3 vv4'>Топ 10 популярных <br></br>имен в 2022!</p>
+                             <p className='vv3 vv4 vv5'>Топ 10 популярных <br></br>имен в 2022!</p>
                         </div>
                         
                     </Button>
@@ -401,12 +384,12 @@ function Home({fetchedUser}) {
                     </Button>
                 </div>
 
-                {LastNameList.length > 0&&<div className='LineParent LineTop'>
+                {LastNameList.filter(element => element != null).length > 0&&<div className='LineParent LineTop'>
                  <div className='Line'> </div>
                 </div>}
 
                 <div className='LastName'>
-                {LastNameList.length > 0 ? LastNameList !== null&& <>
+                {LastNameList.filter(element => element != null).length > 0 ? LastNameList !== null&& <>
                   {/* <Title className='TAKs'>История поиска</Title> */}
                   <div className="col-md-12 text-center">
                  
@@ -422,18 +405,19 @@ function Home({fetchedUser}) {
                       <div>{LastName}</div>
                       </Link>
                     </div>
-                  ))}
+                  ))
+                  }
                   </>: ""}
                 </div>
               </div>
              : ''
             }
-         {searchTerm && 
+         { searchTerm && 
          <div className='netImeniStyle'>
           {searchResults.length > 0 ? '' : <p className='isomoeImya'>Искомое имя не найдено. Проверьте правильность введенного имени. Ввод имени только на кириллице.</p>}
          </div>}
 
-         {searchTerm === '' ? '' : <>
+         {conditionValue  ? '' : searchTerm === '' ? '' : <>
          <ul className='ulStyle'>
             {searchResults.map((result) => (
               <li key={result.id} className='liStyle'>
@@ -441,7 +425,6 @@ function Home({fetchedUser}) {
              
               </li>
                ))}
-        
         
           </ul>
           </>}
@@ -455,10 +438,7 @@ function Home({fetchedUser}) {
 
         {snackbar}
       </div>
-      {conditionValue && 
-      <div className='redParent'>
-        <p className ='red'>Потеряна связь с интернетом</p>
-      </div>}
+
       
     </>
   );

@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import styles from './ItemName.module.css'
 import { Link } from 'react-router-dom'
 import { Icon20ArticleBoxOutline , Icon20Users3, Icon20ArrowUturnLeftOutline, Icon20ArrowshapeLeft2Outline,Icon20LikeCircleFillRed,Icon20ViewOutline,Icon20StarsFilled} from '@vkontakte/icons';
@@ -8,6 +8,24 @@ import bridge from '@vkontakte/vk-bridge';
 const Top = () => {
   const [reclama,setReaclama] = useState(false)
   const [otobrazhaemFemale,setOtobrazhaemFemale] = useState(true)
+
+  useEffect(() => {
+    //  document.querySelector('#wk_layer_wrap').scroll(0,-500)
+    window.scrollTo(0,0)
+    bridge.send('VKWebAppScroll', {
+        top: 0,
+        speed: 600
+        }) 
+        .then((data) => { 
+          if (data.top) {
+            // Окно бразера прокручено
+          }
+        })
+        .catch((error) => {
+          // Ошибка
+          console.log(error);
+        });
+    }, [])
 
   const PokazReckamy = ()=>{
     setReaclama(true)
