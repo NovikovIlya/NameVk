@@ -89,17 +89,13 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
   }
 
   function handleFamily(event){
-
     const text = event.target.value
-
     console.log(text);
     setFamilyUser(text)
   }
 
   function handleSurName(event){
-
     const text = event.target.value
-
     console.log(text);
     setsurNameUser(text)
   }
@@ -147,12 +143,7 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
       return
       // return text.slice(0,-1)
     }
-    // if(isValid(surNameUser)===false){
-    //   // alert('Введен неккоректный текст (спецсимвол)')
-    //   openErrorCiril()
-    //   return
-    //   // return text.slice(0,-1)
-    // }
+
     // if(isValid(familyUser)===false){
     //   // alert('Введен неккоректный текст (спецсимвол)')
     //   openErrorCiril()
@@ -170,15 +161,11 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
             console.log(dataNumer);
             setResp(result)
             console.log('sszzz',result);
-            
-            
         } catch (error) {
             setErrorZero(true)
-            console.log('Ошибка',error);
-            
+            console.log('Ошибка',error); 
         }
 
-        
     }
     haha()
   }
@@ -244,21 +231,21 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
 
         <form method="post" onSubmit={handleSubmit} className='formStyle'>
           <div className='papaBox'>
-            <Input className='inputNum' value={familyUser} placeholder='Введите фамилию' onChange={handleFamily}/>
+            <Input maxLength={17} className='inputNum' value={familyUser} placeholder='Введите фамилию' onChange={handleFamily}/>
             {/* {familyUser&& <Button onClick={()=>{
             setFamilyUser('')
             }} className='btnDelete1' mode='outline' appearance='neutral'>X</Button>} */}
           </div>
             
           <div className='papaBox'>
-            <Input className='inputNum' value={nameUser}   placeholder='Введите имя' onChange={handleName}/>
+            <Input maxLength={17} className='inputNum' value={nameUser}   placeholder='Введите имя' onChange={handleName}/>
             {/* {nameUser&& <Button onClick={()=>{
             setNameUser('')
             }} className='btnDelete1' mode='outline' appearance='neutral'>X</Button>} */}
           </div>
 
           <div className='papaBox'>
-            <Input className='inputNum' value={surNameUser}  placeholder='Введите отчество' onChange={handleSurName}/>
+            <Input maxLength={17} className='inputNum' value={surNameUser}  placeholder='Введите отчество' onChange={handleSurName}/>
             {/* {surNameUser&& <Button onClick={()=>{
             setsurNameUser('')
             }} className='btnDelete1' mode='outline' appearance='neutral'>X</Button>} */}

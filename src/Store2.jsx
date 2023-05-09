@@ -9,7 +9,8 @@ export const useOldData = create(
   (set)=>({
       olderData:[],
       addOlderData: (test)=>set(state=>{
-        return {olderData:[test,...state.olderData]}
+        const array2 = [test,...state.olderData]
+        return {olderData:[...new Set(array2)]}
       })
   }),
   {

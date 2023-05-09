@@ -1,9 +1,4 @@
-/*
-* Prefixed by https://autoprefixer.github.io
-* PostCSS: v8.4.14,
-* Autoprefixer: v10.4.7
-* Browsers: last 4 version
-*/
+
 
 
 .container{
@@ -84,6 +79,10 @@
     -webkit-box-pack: center;
         -ms-flex-pack: center;
             justify-content: center;
+}
+
+.redZ{
+    background-color: #ff1361;
 }
 
 .inputStyle{
@@ -575,6 +574,15 @@
    0 0.9px 1.5px hsla(0, 0%, 0%, 0.045),
    0 3.5px 6px hsla(0, 0%, 0%, 0.09)
 }
+.titleNameParent{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.titleName{
+    
+    text-align: center;
+}
 .top2{
     border-radius: 0px 20px 20px 0px;
     -webkit-box-shadow: inset 0 0 0.5px 1px hsla(0, 0%,  
@@ -625,6 +633,15 @@
         -webkit-box-pack: center !important;
             -ms-flex-pack: center !important;
                 justify-content: center !important;
+    }
+}
+@media screen and (max-width: 715px) {
+    .submitStyle0 {
+        margin-bottom: 5px;
+        
+    }
+    .submitStyle {
+        width: 189.125px !important;
     }
 }
 

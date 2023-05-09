@@ -9,6 +9,9 @@ import bridge from '@vkontakte/vk-bridge';
 import {useLastName} from './../../Store'
 import {useOldData} from './../../Store2'
 import {dataZero} from './../../data'
+import LazyLoad from 'react-lazy-load';
+import { useInView } from 'react-intersection-observer';
+
 
 
 
@@ -161,9 +164,6 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'interstitial' })
   
 
   
-  // useEffect(()=>{
-  //   zagryzimReclamy()
-  // },[])
 
   const zagryzimReclamy = ()=>{
     if(context !== false){
@@ -206,16 +206,24 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'interstitial' })
   console.log(url);
   console.log(name1);
   
+
+  const { ref, inView } = useInView({
+    // triggerOnce:true,
+    threshold: 0.5,
+  });
   
   
 
   return (
+    // <LazyLoad height={162}>
+    <div >
+    
     <div className={styles.containerItem}>
     {err? <p>Не удалось получить данные. Попробуйте повторить попытку позднее</p> : ''}
     {name && conditionValue && <p className ='red'>Потеряна связь с интернетом</p>}
     
         <div className={`wh ${moeName? context? 'zero1' : '' : ''}`}>
-        {name && <>
+        { name && <>
             <div className={styles.btnParent}>
                 <Link className={styles.btnLink} to='/' >
                     <Button   className={styles.btn}>
@@ -246,16 +254,20 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'interstitial' })
             
         : ''}
         
-        <div className={` whBlock ${moeName? context? 'zero1' : '' : ''}`}>
+        <div ref={ref} className={` whBlock ${moeName? context? 'zero1' : '' : ''}`}>
            
-            {name ? '' : 
+            {inView? name ? '' : 
             err ===false && <>
             <Link onClick={zagryzimReclamy} className={styles.item}  to={`/${name1}`}>{name1}</Link>
-            </>}
+            </> : <div className={styles.itemSkelet}></div>}
 
             {name&& 
             zagryzhay === false &&
-             <>
+             <> 
+                <div className='titleNameParent'>
+                 <Title  level='1' weight='1' className='titleName'>{name}</Title>
+                </div>
+                
                 <div className={styles.mean}>
                     <Title><Icon20ArticleBoxOutline />Описание</Title>
                     <p className={styles.pStyle}>{ moe.name_meaning}</p>
@@ -320,8 +332,10 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'interstitial' })
         
     </div>
     
-    
+    </div>
+    // </LazyLoad>
   )
+
 }
 
 export default ItemName

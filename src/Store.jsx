@@ -11,8 +11,8 @@ export const  useLastName = create(
     
     addLastName: (test) => set(state => {
         const newLastName = test
-
-        return {lastName:[newLastName,...state.lastName]}
+        const array2 = [newLastName,...state.lastName]
+        return {lastName:[...new Set(array2)]}
     })
     
   }),{

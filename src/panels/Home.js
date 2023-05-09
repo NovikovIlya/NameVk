@@ -10,7 +10,8 @@ import { Context } from "./Context";
 import {dataZero} from './../data'
 import {dataZeroName} from './../dataName'
 import Top from './Components/Top';
-
+import InfiniteScroll from 'react-infinite-scroll-component';
+import LazyLoad from 'react-lazy-load'
 
 function Home({fetchedUser}) {
   bridge.send('VKWebAppCheckNativeAds', { ad_format: 'interstitial' })
@@ -47,9 +48,15 @@ function Home({fetchedUser}) {
   const [text, setText] = React.useState('');
   const [snackbar, setSnackbar] = React.useState(null);
 	
-	
+	const onKeyDown = e =>{
+    // обработайте нажатие клавиши. 
+    if (searchTerm1.length > 2 && e.key === 'Enter') {
+      handle()
+    }
+    }
+   
 
-   const poslendi = (value)=>{
+  const poslendi = (value)=>{
     setPoslednieImenas(...poslednieImenas,value)
   }
 	
@@ -146,12 +153,12 @@ function Home({fetchedUser}) {
       setSearchTerm1('')
       setSearchTerm('')
     }
-    if (text.length > 2){
+    if (textCorrect.length > 2){
       setDis(false)
     }
     console.log('teeext',text.length);
     
-    if (text.length <= 2){
+    if (textCorrect.length <= 2){
       setDis(true)
     }
     
@@ -187,6 +194,7 @@ function Home({fetchedUser}) {
 
 
   const searchResults = getSearchResults(searchTerm);
+ 
 
   function getSearchResults(query) {
     const data = dataZeroName
@@ -304,11 +312,11 @@ function Home({fetchedUser}) {
         <div className='miniContainer'>
           <div className='obertka'>
           <div className="col-md-12 text-center">
-                  <h3 className="animate-charcter"> Узнайте значение своего имени!</h3>
+              <h3 className="animate-charcter"> Узнайте значение своего имени!</h3>
           </div>
           <div className='InputParent'>
             
-            <Input maxLength={17} pattern='[А-Яа-яЁё]' type="text" value={searchTerm1} onChange={handleInputChange} className='inputStyle btnPoisk1' placeholder='Введите имя '/>
+            <Input onKeyDown={onKeyDown}   maxLength={17} pattern='[А-Яа-яЁё]' type="text" value={searchTerm1} onChange={handleInputChange} className='inputStyle btnPoisk1' placeholder='Введите имя '/>
           
             <Button disabled={dis? 'disabled' : ''} className='btnPoisk btnPoisk2 ' onClick={handle}><div className='naiti'>Найти</div></Button>
          
@@ -418,15 +426,18 @@ function Home({fetchedUser}) {
          </div>}
 
          {conditionValue  ? '' : searchTerm === '' ? '' : <>
+          
          <ul className='ulStyle'>
+        
             {searchResults.map((result) => (
               <li key={result.id} className='liStyle'>
                 <ItemName name1={result} getAnekdots={getAnekdots} zagr={zagr} poslendi={poslendi}  />
              
               </li>
                ))}
-        
+           
           </ul>
+         
           </>}
         </div>
         
