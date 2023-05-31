@@ -5,7 +5,8 @@ import { Icon20ArticleBoxOutline , Icon20Users3, Icon20ArrowUturnLeftOutline, Ic
 import { Panel, PanelHeader, Header, Button, Group, Cell, Div, Avatar,Title, Text,Input } from '@vkontakte/vkui';
 import bridge from '@vkontakte/vk-bridge';
 
-const Top = () => {
+const Top = ({fetchedUser}) => {
+  const [ok,setOk] = useState(false)
   const [reclama,setReaclama] = useState(false)
   const [otobrazhaemFemale,setOtobrazhaemFemale] = useState(true)
 
@@ -68,12 +69,40 @@ bridge.send('VKWebAppShowBannerAd', {
       console.log(error);
     });
 
+    // bridge.send('VKWebAppGetLaunchParams')
+    // .then((data) => { 
+    //   if (data.vk_app_id) {
+    //     // Параметры запуска получены
+    //     console.log(data)
+    //   }
+    // })
+    // .catch((error) => {
+    //   // Ошибка
+    //   console.log('vvvvvvvv',error);
+    //   setOk(true)
+    // });
+    useEffect(()=>{
+      console.log('rrr',window.location.href)
+  
+      
+      let url = window.location.href
+      let regexp = /vk_client=ok/i;
+      if (regexp.test(url)){
+        console.log('zzzzzzzzzzzzzzzzzzzz')
+        setOk(true)
+      }else{
+        console.log('ooooooooooooooooo')
+       
+      }
+  
+    },[])
+
   return (
     <>
     <div>
         <div className={styles.btnParent}>
             <Link className={styles.btnLink} to='/' >
-                <Button   className={styles.btn}>
+                <Button   className={`btnBlin ${ok === false? '' : 'naitiOk'}`}>
                     <div className='btnKek'>
                         <Icon20ArrowUturnLeftOutline/><p>Назад</p>
                     </div>
@@ -100,7 +129,7 @@ bridge.send('VKWebAppShowBannerAd', {
             </div>
             <div className={styles.mean}>
                 <p className={styles.pStyle}>7 место - Полина</p>
-                <p className={styles.pStyle}>Женская форма французского имени Поль происходит от латинского paulus - «малыш» или «маленький». В Греции, в которой, как известно, все есть, и Полины есть, а точнее Аполлинарии, то есть «солнечные», в честь бога солнечного света Аполлона.</p>
+                <p className={styles.pStyle}>Женская форма французского имени Поль происходит от латинского paulus – «малыш» или «маленький». В Греции, в которой, как известно, все есть, и Полины есть, а точнее Аполлинарии, то есть «солнечные», в честь бога солнечного света Аполлона.</p>
             </div>
             <div className={styles.mean}>
                 <p className={styles.pStyle}>6 место - Ева</p>

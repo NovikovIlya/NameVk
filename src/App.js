@@ -17,6 +17,8 @@ const App = () => {
 	
 	
 
+	
+
 	useEffect(() => {
 		async function fetchData() {
 			const user = await bridge.send('VKWebAppGetUserInfo');
@@ -48,7 +50,7 @@ const App = () => {
 									<Routes>
 										<Route path='/' element={<Home fetchedUser={fetchedUser}/>} />
 										<Route path='/:name' element={<ItemName />} />
-										<Route path='/top' element={<Top />} />
+										<Route path='/top' element={<Top fetchedUser={fetchedUser}/>} />
 										<Route path='/num' element={<Num fetchedUser={fetchedUser}/>} />
 									</Routes>
 								</HashRouter>	

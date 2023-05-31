@@ -12,6 +12,7 @@ import { Context } from "./../Context";
 
 
 function Num({fetchedUser}) {
+  const [ok,setOk] = useState(false)
   const [nameUser,setNameUser] = useState('')
   const [familyUser,setFamilyUser] = useState('')
   const [surNameUser,setsurNameUser] = useState('')
@@ -167,7 +168,8 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
         }
 
     }
-    haha()
+    setTimeout(haha,3000)
+    // haha()
   }
 
   function clickVk(){
@@ -177,8 +179,33 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
     setFamilyUser(fetchedUser.last_name)
   }
 
+  // bridge.send('VKWebAppGetLaunchParams')
+  // .then((data) => { 
+  //   if (data.vk_app_id) {
+  //     // Параметры запуска получены
+  //     console.log(data)
+  //   }
+  // })
+  // .catch((error) => {
+  //   // Ошибка
+  //   console.log('vvvvvvvv',error);
+  //   setOk(true)
+  // });
+  useEffect(()=>{
+    console.log('rrr',window.location.href)
 
+   
+    let url = window.location.href
+    let regexp = /vk_client=ok/i;
+    if (regexp.test(url)){
+      console.log('zzzzzzzzzzzzzzzzzzzz')
+      setOk(true)
+    }else{
+      console.log('ooooooooooooooooo')
+     
+    }
 
+  },[])
   
 
   window.addEventListener('online',  updateOnlineStatus);
@@ -201,7 +228,7 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
     <>
         <div className={styles.btnParent}>
             <Link className={styles.btnLink} to='/' >
-                <Button   className={styles.btn}>
+                <Button   className={`btnBlin ${ok === false? '' : 'naitiOk'}`}>
                     <div className='btnKek'>
                         <Icon20ArrowUturnLeftOutline/><p>Назад</p>
                     </div>
@@ -217,7 +244,7 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
         {/* <Title className='TitleStyle TAKs' weight="1" level="1" style={{ marginBottom: 16 }}>Узнай нумерологию своего имени!</Title> */}
 
         <div className="col-md-12 text-center">
-                <h3 className="animate-charcter"> Узнай нумерологию своего имени!</h3>
+                <h3 className="animate-charcter"> Узнайте нумерологию своего имени!</h3>
         </div>
 
         <div className='baba'>
@@ -253,18 +280,28 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'reward' })
             
   
             
-            <div className='btnBox'>
-                <Button className='submitStyle0' appearance='negative'   onClick={()=>{
+            {/* <div className={`btnBox ${fetchedUser == undefined? 'centerBtn' : ''}`}> */}
+            <div className={`btnBox `}>
+                { <Button className='submitStyle0' appearance='negative'   onClick={()=>{
                     clickVk()
                     
                     }}>
-                    <div className='r5'>Получить данные из ВК</div>
-                    {/* <div className='posleProsmotra'>После просмотра рекламы</div> */}
+                    <div className='r5'>Получить данные из {ok? 'OK': 'VK'}</div>
+                  
+                </Button>}
+               
+                <Button className={`submitStyle ${ok === false? '' : 'naitiOk'}`} type="submit" >
+            
+                  {ok === false ? 
+                   <div className={`posleProsmotra `}>Узнать! За просмотр рекламы</div>
+                   : /Android/i.test(navigator.userAgent)? 
+                      <div className={`posleProsmotra `}>Узнать! За просмотр рекламы</div>
+                    : <div className={`posleProsmotra `}>Узнать!</div>
+                  }
+                  
                 </Button>
-                <Button className='submitStyle' type="submit" >
-                  {/* <div>Узнать за просмотр рекламы!</div> */}
-                  <div className='posleProsmotra'>Узнать! За просмотр рекламы</div>
-                </Button>
+                
+
                
                 
             </div>

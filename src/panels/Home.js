@@ -3,6 +3,7 @@ import './Home.css'
 import bridge from '@vkontakte/vk-bridge';
 import {Icon28ErrorCircleOutline ,Icon20HelpOutline, Icon20FavoriteCircleFillYellow,Icon20NotificationOutline ,Icon20CrownCircleFillVkDating} from '@vkontakte/icons';
 import {useLastName} from './../Store'
+import {useZagr} from './../Store3'
 import { Link, useParams } from 'react-router-dom'
 import { Panel, PanelHeader, Header, Button, Group, Cell, Div, Avatar,Title, Text,Input,Snackbar } from '@vkontakte/vkui';
 import ItemName from './Components/ItemName';
@@ -12,6 +13,13 @@ import {dataZeroName} from './../dataName'
 import Top from './Components/Top';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import LazyLoad from 'react-lazy-load'
+
+const style = {
+  height: 30,
+  border: "1px solid green",
+  margin: 6,
+  padding: 8
+};
 
 function Home({fetchedUser}) {
   bridge.send('VKWebAppCheckNativeAds', { ad_format: 'interstitial' })
@@ -34,7 +42,8 @@ function Home({fetchedUser}) {
     })
     .catch((error) => { console.log(error); /* Ошибка */ });
   }
-
+  const [ok,setOk] = useState(false)
+  const [heh,setHeh] = useState(true)
   const [dis,setDis] = useState(true)
   const [podpiska,setPodpiska] = useState(false)
   const [izbran,setIzbran] = useState(false)
@@ -53,8 +62,16 @@ function Home({fetchedUser}) {
     if (searchTerm1.length > 2 && e.key === 'Enter') {
       handle()
     }
+    if (e.key === 'Backspace') {
+      // 👇️ your logic here
+      
+      console.log(searchTerm1)
+      // setTimeout(proverka,2000)
+
     }
-   
+  }
+  
+
 
   const poslendi = (value)=>{
     setPoslednieImenas(...poslednieImenas,value)
@@ -133,6 +150,16 @@ function Home({fetchedUser}) {
   const handleInputChange = (event) => {
     
     const text = event.target.value
+
+    
+    if (text.length == 0){
+      // console.log(text);
+      
+      setPokaz(false)
+      // console.log('pokaz false');
+      
+    }
+    
     // if(text.length>0 && isValid(text)===false){
     //   // alert('Введен неккоректный текст (спецсимвол)')
     //   openError()
@@ -146,7 +173,7 @@ function Home({fetchedUser}) {
 
     if (searchTerm1.length >100){
       setPokaz(true)
-    }else if (searchTerm1.length <= 1){
+    }else if (searchTerm1.length <= 0){
       setPokaz(false)
     }
     if (text === ''){
@@ -156,7 +183,7 @@ function Home({fetchedUser}) {
     if (textCorrect.length > 2){
       setDis(false)
     }
-    console.log('teeext',text.length);
+    
     
     if (textCorrect.length <= 2){
       setDis(true)
@@ -180,7 +207,7 @@ function Home({fetchedUser}) {
 
     if (searchResults === '' && searchTerm != '' ){
       console.log('Нет таких имен!');
-      console.log(searchResults);
+      
       setNetImeni(true)
       
     }else if (searchTerm == ''){
@@ -198,7 +225,7 @@ function Home({fetchedUser}) {
 
   function getSearchResults(query) {
     const data = dataZeroName
-    console.log(data);
+    
     
     return data.filter((item) =>{
     return(
@@ -265,8 +292,10 @@ function Home({fetchedUser}) {
     console.log(error);
   });
   }
-  
 
+  
+  const zagrZus = useZagr((state)=>state.bears) 
+  const setzagrZus = useZagr((state)=>state.increasePopulation) 
 
 
   const LastNameList = useLastName((state)=>state.lastName)
@@ -297,17 +326,67 @@ function Home({fetchedUser}) {
     // Ошибка
     console.log(error);
   });
+
+  const time = ()=>{
+    if (zagrZus === 0){
+      setZagr(true)
+      const tik = ()=>{
+        setZagr(false)
+        setzagrZus()
+      }
+      setTimeout(tik,1500)
+    }
+
+  }
+  // bridge.send('VKWebAppGetLaunchParams')
+  // .then((data) => { 
+  //   if (data.vk_app_id) {
+  //     // Параметры запуска получены
+  //     console.log(data)
+  //   }else {
+  //     setOk(true)
+  //   }
+  // })
+  // .catch((error) => {
+  //   // Ошибка
+  //   console.log('vvvvvvvv',error);
+  //   setOk(true)
+  // });
+ 
+
+ 
+  useEffect(()=>{
+    console.log('rrr',window.location.href)
+
+    time()
+    let url = window.location.href
+    let regexp = /vk_client=ok/i;
+    if (regexp.test(url)){
+      console.log('zzzzzzzzzzzzzzzzzzzz')
+      setOk(true)
+    }else{
+      console.log('ooooooooooooooooo')
+     
+    }
+
+  },[])
+  
  
   return (
     <> 
-      <div className='container'>
+      {zagr? 
+        <div className='zagMain zagMain1'>
+				    <div className='zagzag'>
+				    	<h1 className='zagryzka'>Идет загрузка</h1>
+				    	<div className='spin'>
+					    	<div className="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+					    </div>
+				    </div>
+			    </div>
+      : ''}
+      {zagr === false && <div className='container'>
        
-        {zagr? 
-          <div className='zagzag'>
-              <p>Идет загрузка...</p> 
-              <div className="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-            </div>
-        : ''}
+
 
         <div className='miniContainer'>
           <div className='obertka'>
@@ -316,21 +395,24 @@ function Home({fetchedUser}) {
           </div>
           <div className='InputParent'>
             
-            <Input onKeyDown={onKeyDown}   maxLength={17} pattern='[А-Яа-яЁё]' type="text" value={searchTerm1} onChange={handleInputChange} className='inputStyle btnPoisk1' placeholder='Введите имя '/>
+            <Input  onKeyDown={onKeyDown}   maxLength={17} pattern='[А-Яа-яЁё]' type="text" value={searchTerm1} onChange={handleInputChange} className='inputStyle btnPoisk1' placeholder='Введите имя '/>
           
-            <Button disabled={dis? 'disabled' : ''} className='btnPoisk btnPoisk2 ' onClick={handle}><div className='naiti'>Найти</div></Button>
+            <Button disabled={dis? 'disabled' : ''} className={`btnPoisk btnPoisk2 ${ok? 'naitiOk' : '' }`} onClick={handle}><div className={` ${ok? 'naiti' : ''}`}>Найти</div></Button>
          
-           {searchTerm1&& <Button onClick={()=>{
+           {  searchTerm1&& <Button onClick={()=>{
             setPokaz(false)
             setSearchTerm1('')
             setDis(true)
             setSearchTerm('')}} className='btnDelete' mode='outline' appearance='neutral'>X</Button>}
 
-           {searchTerm1 === '' && <Button onClick={()=>{
-              console.log(fetchedUser)
+           {
+            
+           searchTerm1 === '' && <Button onClick={()=>{
+              
               NameVk()
               setDis(false)
-            }} className='btnDelete' mode='outline' appearance='neutral'>VK</Button>}
+            }} className='btnDelete' mode='outline' appearance='neutral'>{ok ? 'OK' : 'VK'}</Button>
+            }
             
 
           
@@ -377,6 +459,8 @@ function Home({fetchedUser}) {
                     </Button>
                   </Link>
                 </div>
+                {
+                ok === false &&
                 <div className={`izbrannoeBtn ${izbran? 'zero2' : ''}`}>
                     <Button  className='btn2 fac' onClick={izbranoe} >
                         <div className='btnKek '>
@@ -384,6 +468,10 @@ function Home({fetchedUser}) {
                         </div>
                     </Button>
                 </div>
+                }
+              
+                { 
+                ok === false &&
                 <div className={`izbrannoeBtn mb ${podpiska? 'zero2' : ''}`}>
                     <Button className='btn2 fac' onClick={podiskaUvedomlenie}  >
                         <div className='btnKek '>
@@ -391,6 +479,8 @@ function Home({fetchedUser}) {
                         </div>
                     </Button>
                 </div>
+                }
+               
 
                 {LastNameList.filter(element => element != null).length > 0&&<div className='LineParent LineTop'>
                  <div className='Line'> </div>
@@ -429,7 +519,7 @@ function Home({fetchedUser}) {
           
          <ul className='ulStyle'>
         
-            {searchResults.map((result) => (
+            {searchResults.slice(0,30).map((result) => (
               <li key={result.id} className='liStyle'>
                 <ItemName name1={result} getAnekdots={getAnekdots} zagr={zagr} poslendi={poslendi}  />
              
@@ -448,7 +538,7 @@ function Home({fetchedUser}) {
         )}
 
         {snackbar}
-      </div>
+      </div>}
 
       
     </>

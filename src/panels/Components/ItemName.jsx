@@ -17,6 +17,7 @@ import { useInView } from 'react-intersection-observer';
 
 
 const ItemName = ({name1,getAnekdots,zagr,poslendi}) => {
+  const [ok,setOk] = useState(false)
   const [zagr1,setZagr1] = useState(true)
   const [context, setContext] = useContext(Context);
   const [fetchedUser, setUser] = useState(null);
@@ -92,7 +93,7 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'interstitial' })
     }
     fetchData();
     
-    console.log(fetchedUser);
+    
     
 
 
@@ -104,7 +105,7 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'interstitial' })
   
   function wallPost(){
     bridge.send('VKWebAppShowWallPostBox', {
-        message: 'Теперь мне известна тайна моего имени! \n'   + moe.name_meaning + '\n'  + 'Узнай тайну и ты: https://vk.com/app51616632' , 
+        message: `Теперь мне известна тайна имени ${name}! \n`   + moe.name_meaning + '\n'  + 'Узнай тайну и ты: https://vk.com/app51616632' , 
         attachment: 'https://vk.com/app51616632',
         owner_id: fetchedUser.id
       })
@@ -129,21 +130,20 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'interstitial' })
   let moeName
   useEffect(()=>{
     let papaData = oldData.find(item => item.name == name)
-    console.log('papa11',papaData);
+    
     if (papaData){
       setMoe(papaData)
       setZagryszhay(false)
     }else {
     
       try {
-        console.log(name);
+        
         async function sendName(){
           let response = await fetch(`https://atoma-horoscope.onrender.com/name/${name}`); 
           let result = await response.json();
           moeName = result
           setMoe(moeName)
-          console.log(name1);
-          console.log(moeName);
+
           setErr(false)
           setZagryszhay(false)
           addOld(result)
@@ -183,7 +183,7 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'interstitial' })
   const addNameLast = useLastName((state)=>state.addLastName)
 
   const oldData = useOldData((state)=>state.olderData)
-  console.log('older111',oldData);
+  
   const addOld = useOldData((state)=>state.addOlderData)
 
   window.addEventListener('online',  updateOnlineStatus);
@@ -202,15 +202,42 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'interstitial' })
 	}
   let url = window.location.href
   let regexp = new RegExp(`${name}`, 'igm')
-  console.log(regexp);
-  console.log(url);
-  console.log(name1);
+
   
 
   const { ref, inView } = useInView({
-    // triggerOnce:true,
-    threshold: 0.5,
+    triggerOnce:true,
+    threshold: 0,
   });
+
+  // bridge.send('VKWebAppGetLaunchParams')
+  // .then((data) => { 
+  //   if (data.vk_app_id) {
+  //     // Параметры запуска получены
+  //     console.log(data)
+  //   }
+  // })
+  // .catch((error) => {
+  //   // Ошибка
+  //   console.log('vvvvvvvv',error);
+  //   setOk(true)
+  // });
+
+  useEffect(()=>{
+    console.log('rrr',window.location.href)
+
+    
+    let url = window.location.href
+    let regexp = /vk_client=ok/i;
+    if (regexp.test(url)){
+      console.log('zzzzzzzzzzzzzzzzzzzz')
+      setOk(true)
+    }else{
+      console.log('ooooooooooooooooo')
+     
+    }
+
+  },[])
   
   
 
@@ -226,7 +253,7 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'interstitial' })
         { name && <>
             <div className={styles.btnParent}>
                 <Link className={styles.btnLink} to='/' >
-                    <Button   className={styles.btn}>
+                    <Button   className={`btnBlin ${ok === false? '' : 'naitiOk'}`}>
                         <div className='btnKek'>
                             <Icon20ArrowUturnLeftOutline/><p className='Ppublic'>Назад</p>
                         </div>
@@ -259,7 +286,8 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'interstitial' })
             {inView? name ? '' : 
             err ===false && <>
             <Link onClick={zagryzimReclamy} className={styles.item}  to={`/${name1}`}>{name1}</Link>
-            </> : <div className={styles.itemSkelet}></div>}
+            </> : <div className={`${name? 'zero2' :''}`}><div className={styles.itemSkelet}></div></div> }
+              
 
             {name&& 
             zagryzhay === false &&
@@ -293,15 +321,19 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'interstitial' })
                     <p className={styles.pStyle}>{ moe.name_stones}</p>
                 </div>
                 <div className={styles.people}>
-                    <Title><Icon20Rectangle2HorizontalOutline />Металл</Title>
+                    <Title><Icon20Rectangle2HorizontalOutline />Металлы</Title>
                     <p className={styles.pStyle}>{ moe.name_metall}</p>
                 </div>
 
                 <div className='sovmesBlock'>
                 
                   <Button appearance='negative' onClick={sovmesMakeOpen} className={` btnSovmes ${sovmestimostOpen? 'zero2' : ''}`}>
-                    {/* <div>Узнать совместимость имени!</div> */}
+                  {ok === false? 
                     <div className='posleProsmotra rrr'>Узнать совместимость имени! После просмотра рекламы</div>
+                  : /Android/i.test(navigator.userAgent)? 
+                      <div className='posleProsmotra rrr'>Узнать совместимость имени! После просмотра рекламы</div>
+                    : <div className='posleProsmotra rrr'>Узнать совместимость имени!</div>
+                  }
                   </Button>
                   
                 </div>
@@ -313,7 +345,7 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'interstitial' })
                   </div>
                 </div>
 
-                <div className={styles.btnParent}>
+                {ok === false &&<div className={styles.btnParent}>
                   <div className={styles.btnLink}>
                     <Button  onClick={wallPost} className={styles.btn}>
                       
@@ -325,7 +357,7 @@ bridge.send('VKWebAppShowNativeAds', { ad_format: 'interstitial' })
                     </Button>
                     </div>
                     
-                </div>
+                </div>}
                
             </>}
         </div>
